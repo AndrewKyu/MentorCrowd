@@ -4,6 +4,22 @@ Social media platform that's geared towards mentorship for college students. Use
 
 # Prerequisites 
 <br/>
-You need **node.js** and **mongodb**
+You need node.js, mongodb, and MLab
+
+Create MLab account: https://mlab.com/
+
+# Installing on MAC OSX
+<br/>
+1. Install Node.js: https://nodejs.org/en/download/
+2. Install MongoDB: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-os-x/
+
+# Install Dependencies
+<br/>
+1. Clone repository or download the zip file: git clone https://github.com/AndrewKyu/MentorCrowd.git
+2. Run: npm install
+
+# Running the application
+<br/>
+1. Run: npm run server
 
 
