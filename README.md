@@ -10,11 +10,15 @@ Create MLab account: https://mlab.com/
 
 # Installing on MAC OSX
 <br/>
-1. Install Node.js: https://nodejs.org/en/download/ &nbsp;2. Install MongoDB: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-os-x/
+1. Install Node.js: https://nodejs.org/en/download/ 
+<br/>
+2. Install MongoDB: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-os-x/
 
 # Install Dependencies
 <br/>
-1. Clone repository or download the zip file: git clone https://github.com/AndrewKyu/MentorCrowd.git &nbsp;2. Run: npm install
+1. Clone repository or download the zip file: git clone https://github.com/AndrewKyu/MentorCrowd.git 
+<br/>
+2. Run: npm install
 
 # Running the application
 <br/>
