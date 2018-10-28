@@ -4,7 +4,6 @@ Social media platform that's geared towards mentorship for college students. Use
 
 # Prerequisites 
 <br/>
-* node.js
-* mongodb
+* Node js
 
 
