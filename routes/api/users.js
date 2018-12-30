@@ -41,7 +41,7 @@ router.get('/test', (req, res)=> {
 router.post('/register', (req, res) => {
 
     //Checks validations from ../../validation/register
-    console.log(`testing.. ${req}`);
+    // console.log(`testing.. ${req}`);
     const {errors, isValid} = validateRegisterInput(req.body);
 
     if(!isValid){
@@ -123,4 +123,7 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.post('/connect', (req, res) => {
+    
+});
 module.exports = router;
