@@ -61,11 +61,9 @@ const ProfileSchema = new Schema({
             gpa:{
                 type: Number
             },
-            courses:[
-                {
-                    type: String
-                }
-            ],
+            courses:{
+                    type: [String]
+            },
         }
     ],
     experience: [
