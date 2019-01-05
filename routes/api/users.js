@@ -10,6 +10,7 @@ const passport = require('passport');
 
 //Validations
 const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 //MongoDB Schemas
 const User = require('../../models/User');
@@ -40,7 +41,7 @@ router.get('/test', (req, res)=> {
 router.post('/register', (req, res) => {
 
     //Checks validations from ../../validation/register
-    console.log(`testing.. ${req}`);
+    // console.log(`testing.. ${req}`);
     const {errors, isValid} = validateRegisterInput(req.body);
 
     if(!isValid){
@@ -73,4 +74,56 @@ router.post('/register', (req, res) => {
     });
 });
 
+/*
+------------------------------------------------|
+|    @route         POST api//users/login       |
+|    @description   Login a user /              |
+                    Return JWT Token            | 
+|    @access        Public                      |
+------------------------------------------------|
+*/
+router.post('/login', (req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    //Checks if user exists
+    User.findOne({email}).then(user => {
+        if(!user){
+            errors.email = "Email or password field is incorrect";
+            return res.status(404).json(errors);
+        }
+
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if(isMatch){
+                const payload = {id: user.id, name: user.name}; //creates JWT Payload
+
+                //Sign Token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey,
+                    { expiresIn: 3600 },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: 'Bearer ' + token
+                        });
+                    }
+                );
+            }else{
+                errors.password = 'Email or password field is incorrect';
+                return res.status(400).json(errors);
+            }
+        });
+    });
+});
+
+router.post('/connect', (req, res) => {
+    
+});
 module.exports = router;
