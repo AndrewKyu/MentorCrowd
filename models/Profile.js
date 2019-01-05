@@ -94,14 +94,10 @@ const ProfileSchema = new Schema({
             }
         }
     ],
-    skills: [
-        {
-            name:{
-                type: String,
+    skills: {
+                type: [String],
                 required: true
-            }
-        }
-    ],
+    },
     awards: [
         {
             name:{
