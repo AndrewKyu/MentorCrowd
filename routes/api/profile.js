@@ -11,6 +11,7 @@ const User = require('../../models/User');
 //Validation Inputs
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require('../../validation/experience');
+const validateEducationInput = require("../../validation/education");
 
 /*
 ------------------------------------------------|
@@ -208,6 +209,7 @@ router.post(
 
     //Query the database to find the user
     Profile.findOne({ user: req.user.id }).then(profile => {
+      
       const newExp = {
         title: req.body.title,
         company: req.body.company,
@@ -217,10 +219,56 @@ router.post(
         current: req.body.current,
         description: req.body.description
       };
+
       profile.experience.unshift(newExp);
 
       profile.save().then(profile => res.json(profile));
     });
   }
 );
+
+/*
+------------------------------------------------|
+|    @route         POST api/profile/education  |
+|    @description   Add education to profile    | 
+|    @access        Private                     |
+------------------------------------------------|
+*/
+router.post(
+  "/education",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateEducationInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newEdu = {};
+
+      if(req.body.school) newEdu.school = req.body.school;
+      if(req.body.degree) newEdu.degree = req.body.degree;
+      if(req.body.major) newEdu.major = req.body.major;
+      if(req.body.minor) newEdu.minor = req.body.minor;
+      if(req.body.from) newEdu.from = req.body.from;
+      if(req.body.to) newEdu.to = req.body.to;
+      if(req.body.current) newEdu.current = req.body.current;
+      if(req.body.gpa) newEdu.gpa = req.body.gpa;
+      if(req.body.description) newEdu.description = req.body.description;
+
+      if (typeof req.body.courses !== "undefined") {
+        newEdu.courses = req.body.courses.split(",");
+      }
+
+      // Add to exp array
+      profile.education.unshift(newEdu);
+
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
 module.exports = router;
