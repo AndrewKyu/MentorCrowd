@@ -109,9 +109,7 @@ const ProfileSchema = new Schema({
         }
     ],
     interests:{
-            name:{
                 type: [String]
-            }
     },
     social: {
         youtube:{

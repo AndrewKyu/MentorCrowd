@@ -134,6 +134,7 @@ router.post(
 
     //Get fields
     const profileFields = {};
+
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.company) profileFields.company = req.body.company;
@@ -147,6 +148,10 @@ router.post(
     //Skills - Split into array
     if (typeof req.body.skills !== "undefined") {
       profileFields.skills = req.body.skills.split(",");
+    }
+
+    if(typeof req.body.interests !== "undefined"){
+      profileFields.interests = req.body.interests.split(",");
     }
 
     //Social Media
