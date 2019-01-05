@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ProfileSchema = new Schema({
-    firstName:{
+    user:{
         type: Schema.Types.ObjectId,
         ref: "users"
     },
@@ -108,13 +108,11 @@ const ProfileSchema = new Schema({
             }
         }
     ],
-    interests:[
-        {
+    interests:{
             name:{
-                type: String
+                type: [String]
             }
-        }
-    ],
+    },
     social: {
         youtube:{
             type: String
