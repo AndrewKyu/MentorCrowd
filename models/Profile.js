@@ -11,6 +11,25 @@ const ProfileSchema = new Schema({
         required: true,
         max: 40
     },
+    company:{
+        type: String
+    },
+    website:{
+        type: String
+    },
+    location: {
+        type: String
+    },
+    status:{
+        type: String,
+        required: true
+    },
+    bio:{
+        type: String
+    },
+    githubusername:{
+        type: String
+    },
     education: [
         {
             school:{
@@ -78,7 +97,8 @@ const ProfileSchema = new Schema({
     skills: [
         {
             name:{
-                type: String
+                type: String,
+                required: true
             }
         }
     ],
@@ -98,7 +118,24 @@ const ProfileSchema = new Schema({
                 type: String
             }
         }
-    ]
+    ],
+    social: {
+        youtube:{
+            type: String
+        },
+        twitter:{
+            type: String
+        },
+        facebook:{
+            type: String
+        },
+        linkedin:{
+            type: String
+        },
+        instagram:{
+            type: String
+        }
+    }
 })
 
 module.exports = Profile = mongoose.model("profile", ProfileSchema);
