@@ -98,7 +98,7 @@ const ProfileSchema = new Schema({
     },
     awards: [
         {
-            name:{
+            title: {
                 type: String
             },
             description: {

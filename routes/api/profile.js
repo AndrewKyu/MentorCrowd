@@ -12,6 +12,7 @@ const User = require('../../models/User');
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require("../../validation/education");
+const validateAwardInput = require('../../validation/awards');
 
 /*
 ------------------------------------------------|
@@ -271,6 +272,36 @@ router.post(
   }
 );
 
+/*
+------------------------------------------------|
+|    @route         POST api/profile/awards     |
+|    @description   Add awards to profile       | 
+|    @access        Private                     |
+------------------------------------------------|
+*/
+// router.post(
+//   '/awards', 
+//   passport.authenticate('jwt', { session: false}), 
+//   (req, res) => {
+//     const { errors, valid } = validateAwardInput(req.body);
+    
+//     if(!valid){
+//       return res.status(404).json(errors);
+//     }
+
+//     Profile.findOne({ user: req.user.id }).then(profile => {
+//       const newAward = {};
+
+//       if(req.body.title) newAward.title = req.body.title;
+//       if(req.body.description) newAward.description = req.body.description;
+
+//       // Add to exp array
+//       profile.awards.unshift(newAward);
+
+//       profile.save().then(profile => res.json(profile));
+//     });
+
+// });
 /*
 -----------------------------------------------------------|
 |    @route         DELETE api/profile/experience/:exp_id  |
