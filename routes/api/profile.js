@@ -52,7 +52,7 @@ router.get(
 /*
 -----------------------------------------------|
 |    @route         GET api/profile/all        |
-|    @description   Get profile by handle      | 
+|    @description   Get all profiles           | 
 |    @access        Public                     |
 -----------------------------------------------|
 */

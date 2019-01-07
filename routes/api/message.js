@@ -4,6 +4,15 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const path = require('path');
+
+const Conversation = require('../../models/Conversation');
+const Message = require('../../models/Message');
+const User = require('../../models/User');
+
+//Validation Inputs
+const validateMessageInput = require('../../validation/message');
+const validateConversationInput = require('../../validation/conversation');
+
 /*
 ------------------------------------------------|
 |    @route         GET api/message/test        |
@@ -32,12 +41,105 @@ router.get('/', (req, res) => {
 
 });
 
-// io.on('connection', (socket) => {
-//     socket.on('chat message', (msg) => {
-//         console.log('1 user on');
-//         io.emit('chat message', msg);
-//     });
+/*
+---------------------------------------------------|
+|    @route         GET api/message/conversations  |
+|    @description   Retrieves all conversations    | 
+|    @access        Public for testing             |
+---------------------------------------------------|
+*/
+router.get(
+    '/conversations', 
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+    const errors = {};
+
+    Conversation.find()
+            .populate("user")
+            .then(conversations => {
+                if(!conversations){
+                    console.log('do we go here?');
+                    errors.noconversations = "There are no conversations";
+                    res.status(404).json(errors);
+                }
+                res.json(conversations);
+            })
+            .catch(err => res.status(404).json({ conversation: "There are no conversations" }));
+});
+
+/*
+------------------------------------------------------|
+|    @route         GET api/message/:conversation_id  |
+|    @description   Retrieves single conversation     | 
+|    @access        Public for testing                |
+------------------------------------------------------|
+*/
+// router.get('/:conversation_id', (req, res) => {
+//     Message.find({ conversationId: req.params.conversation_id })
+//         .
 // });
 
+/*
+-------------------------------------------------------|
+|    @route         POST api/message/:conversation_id  |
+|    @description   Send reply in conversation         | 
+|    @access        Public for testing                 |
+-------------------------------------------------------|
+*/
+router.post(
+    '/:conversation_id', 
+    passport.authenticate('jwt', { session: false }),
+    (req,res) => {
+        
+});
+
+/*
+-------------------------------------------------------|
+|    @route         POST api/message/new/:recipient    |
+|    @description   Start new conversation             | 
+|    @access        Public for testing                 |
+-------------------------------------------------------|
+*/
+router.post(
+    '/new/:recipient', 
+    passport.authenticate('jwt', { session: false }),
+    (req, res, next) => {
+        const { conversationErrors, isConversationValid } = validateConversationInput(req.params.recipient);
+        const { messageErrors, isMessageValid } = validateMessageInput(req.body);
+
+        if(!isConversationValid){
+            return res.status(400).json(conversationErrors);
+        }
+
+        if(!isMessageValid){
+            return res.status(400).json(messageErrors);
+        }
+
+        const conversationFields = {};
+
+        conversationFields.participants = [req.user.id, req.params.recipient];
+        
+        const newConversation = new Conversation({
+            user: [req.user.id, req.params.recipient]
+        });
+
+        newConversation
+            .save()
+            .then((conversation) => {
+                //console.log(`What is conversation.id? ${conversation._id}\n`);
+                const newMessage = new Message({
+                    conversationId: conversation._id,
+                    message: req.body.message,
+                    user: req.user.id,
+                    date: req.body.date
+                });
+                
+                newMessage
+                    .save()
+                    .then(message => res.json(message))
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+});
 
 module.exports = router;

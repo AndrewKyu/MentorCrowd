@@ -34,7 +34,7 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/message', messages);
 
-io.on('connection', (socket) => {
+exports.socket = io.on('connection', (socket) => {
   //console.log('a user is connected');
   socket.on('chat message', (msg) => {
       console.log(`Message: ${msg}`);
@@ -45,3 +45,4 @@ io.on('connection', (socket) => {
 const port = process.env.PORT || 5000;
 
 http.listen(port, ()=> console.log(`server running on port ${port}`));
+
