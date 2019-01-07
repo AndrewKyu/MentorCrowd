@@ -90,7 +90,19 @@ router.post(
     '/:conversation_id', 
     passport.authenticate('jwt', { session: false }),
     (req,res) => {
-        
+        console.log(`Fields are... conversationId: ${req.params.conversation_id}, message: ${req.body.message}, user: ${req.user.id}, date: ${req.body.date}`);
+        const msgResponse = new Message({
+            conversationId: req.params.conversation_id,
+            message: req.body.message,
+            user: req.user.id,
+            date: req.body.date
+        });
+
+        msgResponse
+            .save()
+            .then(reply => res.json(reply))
+            .catch(err => console.log(err));
+
 });
 
 /*
