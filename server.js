@@ -34,7 +34,7 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/message', messages);
 
-exports.socket = io.on('connection', (socket) => {
+io.on('connection', (socket) => {
   //console.log('a user is connected');
   socket.on('chat message', (msg) => {
       console.log(`Message: ${msg}`);

@@ -5,6 +5,7 @@ const passport = require('passport');
 
 const path = require('path');
 
+//Importing Conversation, Messenger, and User models
 const Conversation = require('../../models/Conversation');
 const Message = require('../../models/Message');
 const User = require('../../models/User');
@@ -58,7 +59,6 @@ router.get(
             .populate("user")
             .then(conversations => {
                 if(!conversations){
-                    console.log('do we go here?');
                     errors.noconversations = "There are no conversations";
                     res.status(404).json(errors);
                 }
@@ -78,8 +78,18 @@ router.get(
     '/:conversation_id', 
     passport.authenticate('jwt', { session: false }), 
     (req, res) => {
-        Message.findOne({ conversationId: req.params.conversation_id })
-            .populate("")
+        const errors = {};
+
+        Message.find({ conversationId: req.params.conversation_id })
+            .populate("user")
+            .then(conversation => {
+                if(!conversation){
+                    errors.noconversation = "That conversation does not exist";
+                    res.status(404);
+                }
+                res.json(conversation);
+            })
+            .catch(err => res.status(404).json(err));
 });
 
 /*
