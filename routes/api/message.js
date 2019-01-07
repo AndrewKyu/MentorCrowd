@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
 ---------------------------------------------------|
 |    @route         GET api/message/conversations  |
 |    @description   Retrieves all conversations    | 
-|    @access        Public for testing             |
+|    @access        Private                        |
 ---------------------------------------------------|
 */
 router.get(
@@ -71,26 +71,28 @@ router.get(
 ------------------------------------------------------|
 |    @route         GET api/message/:conversation_id  |
 |    @description   Retrieves single conversation     | 
-|    @access        Public for testing                |
+|    @access        Private                           |
 ------------------------------------------------------|
 */
-// router.get('/:conversation_id', (req, res) => {
-//     Message.find({ conversationId: req.params.conversation_id })
-//         .
-// });
+router.get(
+    '/:conversation_id', 
+    passport.authenticate('jwt', { session: false }), 
+    (req, res) => {
+        Message.findOne({ conversationId: req.params.conversation_id })
+            .populate("")
+});
 
 /*
 -------------------------------------------------------|
 |    @route         POST api/message/:conversation_id  |
 |    @description   Send reply in conversation         | 
-|    @access        Public for testing                 |
+|    @access        Private                            |
 -------------------------------------------------------|
 */
 router.post(
     '/:conversation_id', 
     passport.authenticate('jwt', { session: false }),
     (req,res) => {
-        console.log(`Fields are... conversationId: ${req.params.conversation_id}, message: ${req.body.message}, user: ${req.user.id}, date: ${req.body.date}`);
         const msgResponse = new Message({
             conversationId: req.params.conversation_id,
             message: req.body.message,
@@ -109,7 +111,7 @@ router.post(
 -------------------------------------------------------|
 |    @route         POST api/message/new/:recipient    |
 |    @description   Start new conversation             | 
-|    @access        Public for testing                 |
+|    @access        Private                            |
 -------------------------------------------------------|
 */
 router.post(
@@ -126,10 +128,6 @@ router.post(
         if(!isMessageValid){
             return res.status(400).json(messageErrors);
         }
-
-        const conversationFields = {};
-
-        conversationFields.participants = [req.user.id, req.params.recipient];
         
         const newConversation = new Conversation({
             user: [req.user.id, req.params.recipient]
@@ -138,7 +136,6 @@ router.post(
         newConversation
             .save()
             .then((conversation) => {
-                //console.log(`What is conversation.id? ${conversation._id}\n`);
                 const newMessage = new Message({
                     conversationId: conversation._id,
                     message: req.body.message,
