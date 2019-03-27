@@ -19,77 +19,48 @@ LIGHT GRAY: #ECF0F2
 	font-smoothing:antialiased;
 	text-rendering:optimizeLegibility;
 }
-
 body {
-    background-color: #ECF0F2;
-    margin: 0;
+    background-color: #ECF0F2!important;
+    margin: 0!important;
 }
-
 h1, h2, h3, h4, h5, h6 { 
-    font-family: 'Roboto', sans-serif;
-    color: #47525E;
+    font-family: 'Roboto', sans-serif!important;
+    color: #47525E!important;
 }
-
 p {
-    font-family: 'Roboto', sans-serif;
-    color: #9FAAB0;
-    letter-spacing: 0.50px;
+    font-family: 'Roboto', sans-serif!important;
+    color: #9FAAB0!important;
+    letter-spacing: 0.50px!important;
 }
-
 a {
-    color: #63BFE1;
-    text-decoration: none;
     -o-transition: 0.4s ease-in-out;
 	-ms-transition: 0.4s ease-in-out;
 	-moz-transition: 0.4s ease-in-out;
     transition: 0.4s ease-in-out;
 }
-
-a:hover {
-    color: #00709A;
-}
 /** basics end **/
 
 /** navigation start **/
-nav {
-    background-color: #63BFE1;
-    padding: 5px;
-    display: inline-block;
-    width: 100%;
-}
-nav ul.left {
-    list-style: none;
-    width: 49%;
-    float: left;
-    margin-left: 1%;
-}
-nav ul.right {
-    list-style: none;
-    width:49%;
-    float: right;
-    margin-right: 1%;
-    text-align:right;
-}
-nav li {
-    display: inline-block;
-    margin: 10px 10px 0 10px;
-}
-nav li a {
+.navbar {
+    background-color: #63BFE1!important;
     font-family: 'Roboto', sans-serif;
-    color: #fff;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 1.25em;
 }
-nav input[type=text] {
-    width: 175%;
-    padding: 5px;
-    border: none;
-    background-color: #ECF0F2;
-    font-family: 'Roboto', sans-serif;
-    color: #47525E;
-    font-size: 16px;
-    letter-spacing: 0.50px;
-    text-transform: uppercase;
+.navbar-nav {
+    text-align: center;
+}
+nav a {
+    color: white;
+}
+nav a:hover {
+    color: #00709A;
+}
+.custom-toggler.navbar-toggler {
+    border-color: rgb(255,255,255);
+}
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 /** navigation end **/
 
@@ -138,7 +109,7 @@ p.description {
 .registerPage {
     text-align: center;
     background-color: #fff;
-    width: 50%;
+    width: 1000px;
     margin: 5% auto;
 }
 .registerPage h2 {
@@ -147,6 +118,18 @@ p.description {
     text-transform: uppercase;
     padding-top: 5%;
     margin-bottom: 10px;
+}
+.registerPage a {
+    color: #63BFE1;
+    text-decoration: none;
+    -o-transition: 0.4s ease-in-out;
+	-ms-transition: 0.4s ease-in-out;
+	-moz-transition: 0.4s ease-in-out;
+    transition: 0.4s ease-in-out;
+}
+.registerPage a:hover {
+    color: #00709A;
+    text-decoration: none;
 }
 .registerPage p {
     margin: 0 5%;
@@ -160,7 +143,7 @@ p.terms {
 .loginPage {
     text-align: center;
     background-color: #fff;
-    width: 50%;
+    width: 1000px;
     margin: 5% auto;
 }
 .loginPage h2 {
@@ -169,6 +152,18 @@ p.terms {
     text-transform: uppercase;
     padding-top: 5%;
     margin-bottom: 10px;
+}
+.loginPage a {
+    color: #63BFE1;
+    text-decoration: none;
+    -o-transition: 0.4s ease-in-out;
+	-ms-transition: 0.4s ease-in-out;
+	-moz-transition: 0.4s ease-in-out;
+    transition: 0.4s ease-in-out;
+}
+.loginPage a:hover {
+    color: #00709A;
+    text-decoration: none;
 }
 .loginPage p {
     margin: 0 5%;
@@ -179,24 +174,24 @@ p.help {
 /** login page end **/
 
 /** form start **/
-.formContainer {
+.mentorCrowdForm .formContainer {
     display: block;
 	width: 75%;
 	margin: 0 auto;
 	position: relative;
     text-align: left;
 }
-#form {
+.mentorCrowdForm #form {
 	display: inline-block;
 	padding: 25px;
     width:100%;
 }
-fieldset {
+.mentorCrowdForm fieldset {
 	border: medium none !important;
 	margin: 0 0 15px;
 	padding: 0;
 }
-#form textarea, #form input[type="text"] {
+.mentorCrowdForm #form textarea, #form input[type="text"] {
 	width: 100%;
 	border: 1px solid #9FAAB0;
 	background: #FFF;
@@ -204,14 +199,14 @@ fieldset {
 	padding: 10px;
     color: #9FAAB0;
 }
-#form textarea:hover, #form input[type="text"]:hover 
+.mentorCrowdForm #form textarea:hover, #form input[type="text"]:hover 
 {
     border:1px solid #47525E;
 	-webkit-transition:border-color 0.3s ease-in-out;
 	-moz-transition:border-color 0.3s ease-in-out;
 	transition:border-color 0.3s ease-in-out;
 }
-#form button[type="submit"] {
+.mentorCrowdForm #form button[type="submit"] {
 	width:100%;
 	background-color:#63BFE1;
 	color:#FFF;
@@ -221,7 +216,7 @@ fieldset {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
 }
-#form button[type="submit"]:hover {
+.mentorCrowdForm #form button[type="submit"]:hover {
 	background-color:#00709A;
 	-webkit-transition:background 0.3s ease-in-out;
 	-moz-transition:background 0.3s ease-in-out;
