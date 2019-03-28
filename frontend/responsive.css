@@ -1,0 +1,18 @@
+@media screen and (max-width: 1200px) {
+    .loginPage {
+        width: 90%;
+    }
+    .registerPage {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .homePageButtons {
+        width: 90%;
+    }
+    .homePageButtons button {
+        width: 100%; 
+        margin: 1% 1%;
+    }
+}
