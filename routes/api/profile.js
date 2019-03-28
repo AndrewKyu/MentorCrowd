@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 //Importing Profile Model
 const Profile = require('../../models/Profile');
@@ -14,10 +16,35 @@ const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require("../../validation/education");
 const validateAwardInput = require('../../validation/awards');
 
+router.post('/upload', 
+            passport.authenticate('jwt', {session: false}), 
+            upload.single('image'), 
+            (req, res) => {
+
+            Profile.findOne({ user: req.user.id }).then(profile => {
+              if(req.file) profile.image = req.file.path + req.file.mimetype;
+              profile
+                .save()
+                .then(result => {
+                  res.status(201).json({
+                    message: "photo uploaded"
+                  });
+                })
+                .catch(err => {
+                  console.log(err);
+                  res.status(500).json({
+                    error: err
+                  });
+                });
+            });
+            console.log(req.file);
+  
+});
+
 /*
 ------------------------------------------------|
 |    @route         GET api/profile/test        |
-|    @description   Tests profile route         | 
+|    @description   Tests profile route         |     
 |    @access        Public                      |
 ------------------------------------------------|
 */
