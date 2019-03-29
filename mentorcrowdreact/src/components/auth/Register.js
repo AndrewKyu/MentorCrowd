@@ -11,7 +11,6 @@ class Register extends Component{
         this.state = {
             name: '',
             email: '',
-            // username: '',
             password: '',
             password2: '',
             errors: {}
@@ -79,14 +78,6 @@ class Register extends Component{
                                 />
                                 {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                             </div>
-                                {/* <input 
-                                    name="username"
-                                    placeholder="USERNAME" 
-                                    type="text" 
-                                    tabIndex="3" 
-                                    value={this.state.username}
-                                    onChange={this.onChange}
-                                /> */}
                             <div className="form-group">
                                 <input 
                                     name="password" 
