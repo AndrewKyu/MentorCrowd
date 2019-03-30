@@ -21,7 +21,7 @@ class Navbar extends Component {
               className="nav-link"
             >
               <img 
-                className="rounded-circl"
+                className="rounded-circle"
                 src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
                 alt={user.name}
                 style={{width: '25px', marginRight: '5px'}}
