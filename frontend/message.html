@@ -4,24 +4,46 @@
         <meta charset="utf-8">
         <title>Messages | MentorCrowd</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="responsive.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
     </head>
     <body>
-        <nav>
-            <ul class="left">
-                <li><a href="/home.html"><img src="https://via.placeholder.com/40x40" alt="Logo"></a></li>
-                <li><input type="text" placeholder="Search"></li>
-                
-            </ul>
-            <ul class="right">
-                <li><a href="/home.html"><img src="https://via.placeholder.com/40x40" alt="Home"></a></li>
-                <li><a href="/network.html"><img src="https://via.placeholder.com/40x40" alt="Network"></a></li>
-                <li><a href="/message.html"><img src="https://via.placeholder.com/40x40" alt="Messaging"></a></li>
-                <li><a href="/profile.html"><img src="https://via.placeholder.com/40x40" alt="Profile"></a></li>
-            </ul>
+        <nav class="navbar navbar-expand-sm">
+            <a class="navbar-brand" href="/home.html"><img src="https://via.placeholder.com/40x40" alt="Logo"></a>
+            <form class="form-inline">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><img src="//via.placeholder.com/20x20" alt="Search"></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+                </div>
+            </form>
+            <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home.html"><img src="//via.placeholder.com/40x40" alt="Home"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/network.html"><img src="//via.placeholder.com/40x40" alt="Network"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/message.html"><img src="//via.placeholder.com/40x40" alt="Messages"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile.html"><img src="//via.placeholder.com/40x40" alt="Profile"></a>
+                    </li>
+                </ul>
+            </div>
         </nav>
         <section>
         </section>
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>
