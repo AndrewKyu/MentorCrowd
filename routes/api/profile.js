@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+const goose = require('mongoose');
 const passport = require('passport');
+const textminer = require('../../node_modules/text-miner/lib/index.js');
 
 //Importing Profile Model
 const Profile = require('../../models/Profile');
 //Importing User Model
 const User = require('../../models/User');
+
+
 
 //Validation Inputs
 const validateProfileInput = require("../../validation/profile");
@@ -163,6 +166,7 @@ router.post(
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
     if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
@@ -345,4 +349,181 @@ router.delete(
     });
   }
 );
+
+/*
+-----------------------------------------------------------|
+|    @route                                                |
+|    @description   Match user profiles                    | 
+|    @access        Private                                |
+-----------------------------------------------------------|
+*/
+router.get('/match', function(req, res, next) {
+
+  var select = req.query.select;
+
+  Profile.find({}, function(err, founddata){
+    if(err){
+      console.log(err);
+      res.status(500).send();
+    }
+    else{
+      if(founddata.length == 0){
+          var responseObject = undefined;
+          if(select && select == 'count'){
+            responseObject = {count: 0};
+          }
+          res.status(404).send(responseObject);
+      }
+      else{
+        var responseObject = founddata;
+        if(select && select == 'count'){
+          responseObject = {count: founddata.length};
+        }
+        /*  Utilizing text miner to return best matches for user
+        Parse response object into separate strings using end of profile characteritic set in model
+        using the string split method
+        add these separate strings into separate documents
+        create a corpus with string of documents
+        create term docs matrix 
+
+        */
+
+      //  console.log(responseObject[0]);
+      //  console.log("_________________");
+      //  console.log(responseObject[1]);
+      //  console.log("_________________");
+      //  console.log(responseObject[2]);
+      //  console.log("_________________");
+      //  console.log(responseObject[2].toString());
+
+       var my_corpus = new textminer.Corpus([]);
+       var temp = responseObject[0].toString();
+       var quotes = temp.split("'");
+       var bracket1 = quotes.toString().split("[");
+       var bracket2 = bracket1.toString().split("]");
+       var slash = bracket2.toString().split("\\");
+       var g = slash.toString().split("skills:");
+       var x = g[1].toString();
+       var y = x.split("interests:");
+       //console.log(g[0]);
+       //console.log("_____________________________________________");
+       //console.log(g[1]);
+     
+       //console.log("_____________________________________________");
+       //console.log(y[0]);
+       //console.log("_____________________________________________");
+       //console.log(y[1]);
+       //responseObject[0].toString(temp);
+       my_corpus.addDoc(y[0].toString());
+
+
+       temp = responseObject[1].toString();
+       quotes = temp.split("'");
+       bracket1 = quotes.toString().split("[");
+       bracket2 = bracket1.toString().split("]");
+       slash = bracket2.toString().split("\\");
+       g = slash.toString().split("skills:");
+       x = g[1].toString();
+       y = x.split("interests:");
+       //console.log(y[0]);
+       my_corpus.addDoc(y[0].toString());
+
+
+       temp = responseObject[2].toString();
+       quotes = temp.split("'");
+       bracket1 = quotes.toString().split("[");
+       bracket2 = bracket1.toString().split("]");
+       slash = bracket2.toString().split("\\");
+       g = slash.toString().split("skills:");
+       x = g[1].toString();
+       y = x.split("interests:");
+       //console.log(y[0]);
+       my_corpus.addDoc(y[0].toString());
+
+
+
+       //my_corpus.addDoc(responseObject[0].toString());
+       //my_corpus.addDoc(responseObject[1].toString());
+       //my_corpus.addDoc(responseObject[2].toString());
+       my_corpus.toUpper();
+       my_corpus.removeInvalidCharacters();
+       my_corpus.removeInterpunctuation();
+       
+       //my_corpus.clean();
+       my_corpus.removeWords(""); // need to remove chars from string not corpis
+
+       my_corpus.setAttributes([
+        { 'user': 'Andrew' },
+        { 'user': 'Cindy' },
+        { 'user': 'Stephen' },
+      ]);
+
+      var userSkills = my_corpus.groupBy( function group( text, attr ) {
+        return attr.user;
+      });
+
+      console.log( 'Andrew: ' );
+      console.log( userSkills[ 'Andrew' ] );
+      console.log( 'Cindy: ' );
+      console.log( userSkills[ 'Cindy' ] );
+      console.log( 'Stephen: ' );
+      console.log( userSkills[ 'Stephen' ] );
+
+
+
+
+
+       var terms = new textminer.DocumentTermMatrix(my_corpus);
+       terms.fill_zeros();
+       //var weighted = weightTfIdf( terms );
+       //console.log(terms.weighting(TfIdf));
+       console.log(terms.vocabulary);
+       console.log(terms.data);
+       terms.weightTfIdf;
+       terms.removeSparseTerms( 0 );
+       //console.log(terms.findFreqTerms( 1 ));
+
+
+       console.log(terms.vocabulary);
+       console.log(terms.data);
+       console.log(terms.nDocs);
+       console.log(terms.nTerms);
+
+       //terms.removeSparseTerms( 10 );
+       //terms.weighting(weightTfIdf( terms ));
+
+
+      //  console.log(terms.nDocs);
+      //  console.log(terms.nTerms);
+      //  console.log(terms.vocabulary);
+      //  console.log(terms.data);
+
+
+
+
+
+
+       res.send(responseObject);
+       //res.send(responseObject[1]);
+       //res.send(responseObject[2]);
+       //res.send("______________________________");
+      }
+    }
+  })
+
+
+  // Profile.find()
+  //   .populate("user")
+  //   .then(profiles => {
+  //     if(!profiles){
+  //       errors.noprofile = "There are no profiles";
+  //       res.status(404).json(errors);
+  //     }
+  //     res.json(profiles);
+  //   })
+  //   .catch(err => res.status(404).json({profile: "There are no profiles"}));
+
+
+});
+
 module.exports = router;
