@@ -50,59 +50,6 @@ const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require("../../validation/education");
 const validateAwardInput = require('../../validation/awards');
 
-router.post('/upload', 
-            passport.authenticate('jwt', {session: false}), 
-            upload.single('image'), 
-            (req, res) => {
-
-              if(req.file){
-                const file = dataUri(req).content;
-                uploader.upload(file)
-                  .then(result => {
-                    Profile.findOne({ user: req.user.id }).then(profile => {
-                      req.user
-                        .save()
-                        .then(result => {
-                          res.status(201).json({
-                            message: "photo uplaoded"
-                          });
-                        })
-                        .catch(err => {
-                          console.log(err);
-                          res.status(500).json({
-                            error: err
-                          });
-                        });
-                    })
-                  })
-                  .catch(err => {
-                    res.status(400).json({
-                      message: "Something went wrong",
-                      err: err
-                    });
-                  });
-              }
-
-            // Profile.findOne({ user: req.user.id }).then(profile => {
-            // // if(req.file) req.user.image = req.file.path + req.file.mimetype;
-              
-            //   // console.log(req.user);
-            //   req.user
-            //     .save()
-            //     .then(result => {
-            //       res.status(201).json({
-            //         message: "photo uploaded"
-            //       });
-            //     })
-            //     .catch(err => {
-            //       console.log(err);
-            //       res.status(500).json({
-            //         error: err
-            //       });
-            //     });
-            // });
-});
-
 /*
 ------------------------------------------------|
 |    @route         GET api/profile/test        |
@@ -360,6 +307,47 @@ router.post(
     });
   }
 );
+/*
+------------------------------------------------|
+|    @route         POST api/profile/upload     |
+|    @description   Upload profile picture      | 
+|    @access        Private                     |
+------------------------------------------------|
+*/
+router.post('/upload', 
+            passport.authenticate('jwt', {session: false}), 
+            upload.single('image'), 
+            (req, res) => {
+
+  if(req.file){
+    const file = dataUri(req).content;
+    uploader.upload(file)
+      .then(result => {
+        if(result) req.user.image = result.url;
+        Profile.findOne({ user: req.user.id }).then(profile => {
+          req.user
+            .save()
+            .then(result => {
+              res.status(201).json({
+                message: "photo uplaoded"
+              });
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json({
+                error: err
+              });
+            });
+        })
+      })
+      .catch(err => {
+        res.status(400).json({
+          message: "Something went wrong",
+          err: err
+        });
+      });
+  }
+});
 
 /*
 ------------------------------------------------|

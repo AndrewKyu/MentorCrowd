@@ -20,10 +20,9 @@ class Navbar extends Component {
               onClick={this.onLogoutClick.bind(this)} 
               className="nav-link"
             >
-              {user.image}
               <img 
                 className="rounded-circle"
-                // src={profilepic}
+                src={(user.image) ? user.image : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
                 alt={user.name}
                 style={{width: '25px', marginRight: '5px'}}
                 title="Please upload profile picture"
