@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
+// import profilepic from '../../img/2019-03-31T04:35:20.972ZIMG_5585.JPG'
 
 class Navbar extends Component {
   onLogoutClick(e){
@@ -11,7 +12,6 @@ class Navbar extends Component {
   }
   render() {
     const { isAuthenticated, user } = this.props.auth;
-
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -20,9 +20,10 @@ class Navbar extends Component {
               onClick={this.onLogoutClick.bind(this)} 
               className="nav-link"
             >
+              {user.image}
               <img 
                 className="rounded-circle"
-                src={'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
+                // src={profilepic}
                 alt={user.name}
                 style={{width: '25px', marginRight: '5px'}}
                 title="Please upload profile picture"

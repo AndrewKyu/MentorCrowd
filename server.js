@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-
+const { cloudinaryConfig } = require('./config/cloudinaryConfig');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const messages = require('./routes/api/message');
@@ -10,6 +10,7 @@ const messages = require('./routes/api/message');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+cloudinaryConfig(app);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
