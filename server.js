@@ -6,6 +6,7 @@ const passport = require('passport');
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const messages = require('./routes/api/message');
+const posts = require('./routes/api/post');
 
 const app = express();
 const http = require('http').Server(app);
@@ -32,6 +33,7 @@ require("./config/passport")(passport);
 //use routes
 app.use('/api/users', users);
 app.use('/api/profile', profile);
+app.use("/api/posts", posts);
 app.use('/api/message', messages);
 
 io.on('connection', (socket) => {
