@@ -2,8 +2,18 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+
 const multer = require('multer');
-const upload = multer({dest: 'uploads/'});
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb){
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({storage: storage});
 
 //Importing Profile Model
 const Profile = require('../../models/Profile');
@@ -15,6 +25,8 @@ const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require("../../validation/education");
 const validateAwardInput = require('../../validation/awards');
+
+
 
 router.post('/upload', 
             passport.authenticate('jwt', {session: false}), 
