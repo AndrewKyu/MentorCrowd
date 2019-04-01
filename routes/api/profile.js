@@ -316,8 +316,8 @@ router.post('/upload',
     uploader.upload(file)
       .then(result => {
         if(result) req.user.image = cloudinary.url(result.public_id, 
-                                    {width: 100, 
-                                      height: 100, 
+                                    {width: 200, 
+                                      height: 200, 
                                       crop: "thumb", 
                                       gravity: "face"
                                     });

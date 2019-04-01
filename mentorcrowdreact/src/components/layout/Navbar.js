@@ -15,18 +15,22 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
+          <Link className="nav-link" to="/profile">
+            <img
+              className="rounded-circle"
+              src={(user.image) ? user.image : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
+              alt={user.name}
+              style={{width: '25px', marginRight: '5px'}}
+              title="Please upload profile picture"
+            />
+          </Link>
+        </li>
+        <li className="nav-item">
             <a 
               href="" 
               onClick={this.onLogoutClick.bind(this)} 
               className="nav-link"
             >
-              <img 
-                className="rounded-circle"
-                src={(user.image) ? user.image : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
-                alt={user.name}
-                style={{width: '25px', marginRight: '5px'}}
-                title="Please upload profile picture"
-              />
               Logout
             </a>
         </li>
