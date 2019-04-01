@@ -6,16 +6,9 @@ const passport = require('passport');
 const Datauri = require('datauri');
 const path = require('path');
 const { uploader } = require('../../config/cloudinaryConfig');
+const cloudinary = require('cloudinary');
 const multer = require('multer');
 
-// const storage = multer.diskStorage({
-//   destination: function(req, file, cb){
-//     cb(null, './mentorcrowdreact/src/img/');
-//   },
-//   filename: function(req, file, cb){
-//     cb(null, new Date().toISOString() + file.originalname);
-//   }
-// });
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
@@ -48,7 +41,6 @@ const User = require('../../models/User');
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require("../../validation/education");
-const validateAwardInput = require('../../validation/awards');
 
 /*
 ------------------------------------------------|
@@ -323,7 +315,12 @@ router.post('/upload',
     const file = dataUri(req).content;
     uploader.upload(file)
       .then(result => {
-        if(result) req.user.image = result.url;
+        if(result) req.user.image = cloudinary.url(result.public_id, 
+                                    {width: 100, 
+                                      height: 100, 
+                                      crop: "thumb", 
+                                      gravity: "face"
+                                    });
         Profile.findOne({ user: req.user.id }).then(profile => {
           req.user
             .save()
