@@ -20,7 +20,7 @@ class Navbar extends Component {
           <Link className="nav-link" to="/profile">
             <img
               className="rounded-circle"
-              src={(user.image) ? user.image : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}
+              src={(user.image) ? user.image : 'https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg'}
               alt={user.name}
               style={{width: '25px', marginRight: '5px'}}
               title="Please upload profile picture"
