@@ -62,7 +62,7 @@ const ProfileSchema = new Schema({
                 default: false
             },
             gpa:{
-                type: Number
+                type: String
             },
             courses:{
                     type: [String]
