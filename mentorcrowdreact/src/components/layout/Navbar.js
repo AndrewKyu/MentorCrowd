@@ -13,10 +13,11 @@ class Navbar extends Component {
   }
   render() {
     const { isAuthenticated, user } = this.props.auth;
+
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link className="nav-link" to="/profile">
+          <Link className="nav-link" to='/'>
             <img
               className="rounded-circle"
               src={(user.image) ? user.image : 'https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg'}
@@ -25,6 +26,9 @@ class Navbar extends Component {
               title="Please upload profile picture"
             />
           </Link>
+        </li>
+        <li className="nav-item">
+            <Link className="nav-link" to="/profiles">Developers</Link>
         </li>
         <li className="nav-item">
             <a 
@@ -51,6 +55,9 @@ class Navbar extends Component {
         </li>
         <li className="nav-item">
             <Link className="nav-link" to="/contact">Contact</Link>
+        </li>
+        <li className="nav-item">
+            <Link className="nav-link" to="/profiles">Developers</Link>
         </li>
       </ul>
     );
