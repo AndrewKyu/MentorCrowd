@@ -25,10 +25,20 @@ class Profile extends Component {
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
+    let GitHubInfo;
 
     if (profile === null || loading) {
       profileContent = <Spinner />;
     } else {
+      if(profile.githubusername){
+        GitHubInfo = (
+          <ProfileGithub username={profile.githubusername}/>
+        );
+      }else{
+        GitHubInfo = (
+          <p>No Github</p>
+        )
+      }
       profileContent = (
         <div>
           <div className="row">
@@ -45,7 +55,9 @@ class Profile extends Component {
             education={profile.education}
             experience={profile.experience}
           />
-          <ProfileGithub username={profile.githubusername}/>
+          {/* <ProfileGithub username={profile.githubusername}/> */}
+          {GitHubInfo}
+
         </div>
       );
     }

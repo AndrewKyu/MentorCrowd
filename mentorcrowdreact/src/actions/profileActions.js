@@ -166,3 +166,20 @@ export const clearCurrentProfile = () => {
         type: CLEAR_CURRENT_PROFILE
     }
 }
+
+//Upload Profile Picture
+export const uploadProfilePic = (picData) => dispatch => {
+  console.log(picData);
+  axios
+    .post('/api/profile/upload', picData)
+    .then(res => {
+      console.log('res', res);
+      // this.setState({ image: res.data.image });
+    })
+    .catch(err => 
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    )
+}

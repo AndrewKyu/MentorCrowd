@@ -6,7 +6,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
-import { createProfile, getCurrentProfile } from '../../actions/profileActions';
+import { createProfile, getCurrentProfile, uploadProfilePic } from '../../actions/profileActions';
 import isEmpty from '../../validation/is-empty';
 
 class EditProfile extends Component {
@@ -27,10 +27,12 @@ class EditProfile extends Component {
             linkedin: '',
             youtube: '',
             instagram: '',
+            image: '',
             errors: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        // this.uploadPic = this.uploadPic.bind(this);
     }
     onSubmit(e){
         e.preventDefault();
@@ -47,13 +49,28 @@ class EditProfile extends Component {
             facebook: this.state.facebook,
             linkedin: this.state.linkedin,
             youtube: this.state.youtube,
-            instagram: this.state.instagram
+            instagram: this.state.instagram,
+            image: this.state.selectedFile
         };
+        console.log(profileData.image);
+        const fd = new FormData();
+        fd.append('image', profileData.image);
         this.props.createProfile(profileData, this.props.history);
+        this.props.uploadProfilePic(fd);
     }
+    // uploadPic(e){
+    //     e.preventDefault()
+    //     const formdata = new FormData();
+    //     formdata.append('image', this.state.selectedFile)
+    //     this.props.uploadProfilePic(formdata);
+    // }
     onChange(e){
         this.setState({[e.target.name]: e.target.value});
     }
+    fileHandler = e => {
+        this.setState({ selectedFile: e.target.files[0] });
+        console.log(e.target.files[0]);
+     };
     componentDidMount(){
         this.props.getCurrentProfile();
     }
@@ -107,7 +124,8 @@ class EditProfile extends Component {
                 linkedin: profile.linkedin,
                 twitter: profile.twitter,
                 youtube: profile.youtube,
-                instagram: profile.instagram
+                instagram: profile.instagram,
+                image: profile.user.image
             });
         }
     }
@@ -264,6 +282,9 @@ class EditProfile extends Component {
                             <span className="text-muted">Optional</span>
                             </div>
                             {socialInputs}
+                            <p>Upload new profile picture: </p>
+                            <input type="file" onChange={this.fileHandler}/>
+                            {/* <button onClick={this.uploadPic}>Upload</button> */}
                             <input
                             type="submit"
                             value="Submit"
@@ -292,5 +313,5 @@ const mapStateToProp = state => ({
 
 export default connect(
     mapStateToProp,
-    { createProfile, getCurrentProfile }
+    { createProfile, getCurrentProfile, uploadProfilePic }
   )(withRouter(EditProfile));
