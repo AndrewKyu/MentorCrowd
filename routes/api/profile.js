@@ -350,6 +350,9 @@ router.delete(
   }
 );
 
+
+
+
 /*
 -----------------------------------------------------------|
 |    @route                                                |
@@ -397,48 +400,74 @@ router.get('/match', function(req, res, next) {
       //  console.log(responseObject[2].toString());
 
        var my_corpus = new textminer.Corpus([]);
-       var temp = responseObject[0].toString();
-       var quotes = temp.split("'");
-       var bracket1 = quotes.toString().split("[");
-       var bracket2 = bracket1.toString().split("]");
-       var slash = bracket2.toString().split("\\");
-       var g = slash.toString().split("skills:");
-       var x = g[1].toString();
-       var y = x.split("interests:");
-       //console.log(g[0]);
-       //console.log("_____________________________________________");
-       //console.log(g[1]);
+
+        //function for match
+
+      function parsestring(string1){
+        temp = string1.toString();
+        quotes = temp.split("'");
+        bracket1 = quotes.toString().split("[");
+        bracket2 = bracket1.toString().split("]");
+        slash = bracket2.toString().split("\\");
+        g = slash.toString().split("skills:");
+        x = g[1].toString();
+        y = x.split("interests:");
+        //console.log(y[0]);
+        my_corpus.addDoc(y[0].toString());
+      }
+      // parsestring(responseObject[0]);
+      // parsestring(responseObject[1]);
+      // parsestring(responseObject[2]);
+      // parsestring(responseObject[3]);
+
+      var mov;
+      for(mov = 0; mov <founddata.length; mov++){
+        parsestring(responseObject[mov]);
+      }
+
+
+      //  var temp = responseObject[0].toString();
+      //  var quotes = temp.split("'");
+      //  var bracket1 = quotes.toString().split("[");
+      //  var bracket2 = bracket1.toString().split("]");
+      //  var slash = bracket2.toString().split("\\");
+      //  var g = slash.toString().split("skills:");
+      //  var x = g[1].toString();
+      //  var y = x.split("interests:");
+      //  //console.log(g[0]);
+      //  //console.log("_____________________________________________");
+      //  //console.log(g[1]);
      
-       //console.log("_____________________________________________");
-       //console.log(y[0]);
-       //console.log("_____________________________________________");
-       //console.log(y[1]);
-       //responseObject[0].toString(temp);
-       my_corpus.addDoc(y[0].toString());
+      //  //console.log("_____________________________________________");
+      //  //console.log(y[0]);
+      //  //console.log("_____________________________________________");
+      //  //console.log(y[1]);
+      //  //responseObject[0].toString(temp);
+      //  my_corpus.addDoc(y[0].toString());
 
 
-       temp = responseObject[1].toString();
-       quotes = temp.split("'");
-       bracket1 = quotes.toString().split("[");
-       bracket2 = bracket1.toString().split("]");
-       slash = bracket2.toString().split("\\");
-       g = slash.toString().split("skills:");
-       x = g[1].toString();
-       y = x.split("interests:");
-       //console.log(y[0]);
-       my_corpus.addDoc(y[0].toString());
+      //  temp = responseObject[1].toString();
+      //  quotes = temp.split("'");
+      //  bracket1 = quotes.toString().split("[");
+      //  bracket2 = bracket1.toString().split("]");
+      //  slash = bracket2.toString().split("\\");
+      //  g = slash.toString().split("skills:");
+      //  x = g[1].toString();
+      //  y = x.split("interests:");
+      //  //console.log(y[0]);
+      //  my_corpus.addDoc(y[0].toString());
+        
 
-
-       temp = responseObject[2].toString();
-       quotes = temp.split("'");
-       bracket1 = quotes.toString().split("[");
-       bracket2 = bracket1.toString().split("]");
-       slash = bracket2.toString().split("\\");
-       g = slash.toString().split("skills:");
-       x = g[1].toString();
-       y = x.split("interests:");
-       //console.log(y[0]);
-       my_corpus.addDoc(y[0].toString());
+      //  temp = responseObject[2].toString();
+      //  quotes = temp.split("'");
+      //  bracket1 = quotes.toString().split("[");
+      //  bracket2 = bracket1.toString().split("]");
+      //  slash = bracket2.toString().split("\\");
+      //  g = slash.toString().split("skills:");
+      //  x = g[1].toString();
+      //  y = x.split("interests:");
+      //  //console.log(y[0]);
+      //  my_corpus.addDoc(y[0].toString());
 
 
 
@@ -452,22 +481,22 @@ router.get('/match', function(req, res, next) {
        //my_corpus.clean();
        my_corpus.removeWords(""); // need to remove chars from string not corpis
 
-       my_corpus.setAttributes([
-        { 'user': 'Andrew' },
-        { 'user': 'Cindy' },
-        { 'user': 'Stephen' },
-      ]);
+      //  my_corpus.setAttributes([
+      //   { 'user': 'Andrew' },
+      //   { 'user': 'Cindy' },
+      //   { 'user': 'Stephen' },
+      // ]);
 
-      var userSkills = my_corpus.groupBy( function group( text, attr ) {
-        return attr.user;
-      });
+      // var userSkills = my_corpus.groupBy( function group( text, attr ) {
+      //   return attr.user;
+      // });
 
-      console.log( 'Andrew: ' );
-      console.log( userSkills[ 'Andrew' ] );
-      console.log( 'Cindy: ' );
-      console.log( userSkills[ 'Cindy' ] );
-      console.log( 'Stephen: ' );
-      console.log( userSkills[ 'Stephen' ] );
+      // console.log( 'Andrew: ' );
+      // console.log( userSkills[ 'Andrew' ] );
+      // console.log( 'Cindy: ' );
+      // console.log( userSkills[ 'Cindy' ] );
+      // console.log( 'Stephen: ' );
+      // console.log( userSkills[ 'Stephen' ] );
 
 
 
@@ -477,10 +506,10 @@ router.get('/match', function(req, res, next) {
        terms.fill_zeros();
        //var weighted = weightTfIdf( terms );
        //console.log(terms.weighting(TfIdf));
-       console.log(terms.vocabulary);
-       console.log(terms.data);
-       terms.weightTfIdf;
-       terms.removeSparseTerms( 0 );
+      //  console.log(terms.vocabulary);
+      //  console.log(terms.data);
+       //terms.weightTfIdf;
+      // terms.removeSparseTerms( 0 );
        //console.log(terms.findFreqTerms( 1 ));
 
 
@@ -488,6 +517,76 @@ router.get('/match', function(req, res, next) {
        console.log(terms.data);
        console.log(terms.nDocs);
        console.log(terms.nTerms);
+
+      // console.log(terms.data[0][0]);    //111001
+      // console.log(terms.data[0][1]);
+      // console.log(terms.data[0][2]);
+      // console.log(terms.data[0][3]);
+      // console.log(terms.data[2][0]);
+      // console.log(terms.data[2][4]);
+
+       var iter;
+       var iter2;
+       var iter3;
+
+       var iMax = terms.nDocs;
+       var jMax = terms.nDocs;
+
+       var counter = new Array();
+
+       for (i=0;i<iMax;i++) {
+       counter[i]=new Array();
+       for (j=0;j<jMax;j++) {
+         counter[i][j]=0;
+       }
+       }
+       var match = new Array();
+       for (i=0;i<iMax;i++) {
+        match[i]=new Array();
+        for (j=0;j<jMax;j++) {
+          match[i][j]=false;
+        }
+        }
+
+       var terms_doc1 = 0;
+       
+
+       //delete this later  (terms.data[iter][iter3] >=1) && 
+
+       for(iter = 0; iter < terms.nDocs; iter++){
+        //terms_doc1 = 0;
+         for(iter2 = iter+1; iter2 < terms.nDocs; iter2++){
+           
+          //console.log(iter , iter2);
+            for(iter3 = 0; iter3 < terms.nTerms; iter3++){
+             
+             if(terms.data[iter][iter3] >= 1){
+              terms_doc1 +=1;
+              if(terms.data[iter2][iter3] >= 1){
+               // console.log(iter);
+               // console.log(iter2);
+               // console.log(terms.vocabulary[iter3]);
+               counter[iter][iter2] += 1;
+               //console.log(terms.vocabulary[iter3]);
+               //console.log(counter[iter][iter2]);
+              }
+             }            
+            }
+            if(counter[iter][iter2] >= terms_doc1/4){   //user2 has 1/4 of user1's keywords
+              //set match for these 2
+              match[iter][iter2] = true;
+              //recommend user2 to user1
+              console.log("Matched", iter, iter2);
+            }
+            terms_doc1 = 0;
+            // else{
+            //   //remove match for these 2, no need since default is false
+
+            // }
+          }
+        }
+
+
 
        //terms.removeSparseTerms( 10 );
        //terms.weighting(weightTfIdf( terms ));
