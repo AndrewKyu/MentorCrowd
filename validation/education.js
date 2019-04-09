@@ -18,7 +18,7 @@ module.exports = function validateExperienceInput(data) {
   }
 
   if (Validator.isEmpty(data.major)) {
-    errors.fieldofstudy = "Major is required";
+    errors.major = "Major is required";
   }
 
   if (Validator.isEmpty(data.from)) {
