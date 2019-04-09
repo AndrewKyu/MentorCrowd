@@ -3,6 +3,7 @@ import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES } fro
 const initialState = {
     profile: null,
     profiles: null,
+    self: null,
     loading: false
 }
 
@@ -24,12 +25,12 @@ export default function(state = initialState, action){
                 ...state,
                 profiles: action.payload,
                 loading: false
-            }
+            };
         case CLEAR_CURRENT_PROFILE:
             return {
                 ...state,
                 profile: null
-            }
+            };
         default: return state;
     }
 }

@@ -21,7 +21,7 @@ class Profile extends Component {
       this.props.history.push("/not-found");
     }
   }
-
+  //grab self profile
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
@@ -43,7 +43,7 @@ class Profile extends Component {
         <div>
           <div className="row">
             <div className="col-md-6">
-              <Link to="/profiles" className="btn btn-light mb-3 float-left">
+              <Link to="/profiles" className="btn btn-light mb-3 float-left mt-3">
                 Back To Profiles
               </Link>
             </div>

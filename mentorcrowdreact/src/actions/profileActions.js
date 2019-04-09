@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER, GET_PROFILES } from './types';
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER, GET_PROFILES, GET_SELF } from './types';
 
 //Get current profile
 export const getCurrentProfile = () => dispatch => {
@@ -37,6 +37,26 @@ export const getProfileByHandle = handle => dispatch => {
           payload: null
         })
       );
+};
+
+//Get Profile by ID
+export const getProfileByUserId = userID => dispatch => {
+  dispatch(setProfileLoading());
+  console.log('we here?');
+  axios
+    .get(`/api/profile/user/${userID}`)
+    .then(res =>
+      dispatch({
+        type: GET_SELF,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_SELF,
+        payload: null
+      })
+    );
 };
 
 //Create Profile
