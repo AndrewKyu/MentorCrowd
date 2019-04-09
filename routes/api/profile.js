@@ -3,6 +3,35 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+const Datauri = require('datauri');
+const path = require('path');
+const { uploader } = require('../../config/cloudinaryConfig');
+const cloudinary = require('cloudinary');
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+
+const fileFilter = (req, file, cb) => {
+  //Reject a file 
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    cb(null, true);
+  }else{
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage, 
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+const duri = new Datauri();
+
+const dataUri = req =>
+   duri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
+
 //Importing Profile Model
 const Profile = require('../../models/Profile');
 //Importing User Model
@@ -12,12 +41,11 @@ const User = require('../../models/User');
 const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require("../../validation/education");
-const validateAwardInput = require('../../validation/awards');
 
 /*
 ------------------------------------------------|
 |    @route         GET api/profile/test        |
-|    @description   Tests profile route         | 
+|    @description   Tests profile route         |     
 |    @access        Public                      |
 ------------------------------------------------|
 */
@@ -271,6 +299,52 @@ router.post(
     });
   }
 );
+/*
+------------------------------------------------|
+|    @route         POST api/profile/upload     |
+|    @description   Upload profile picture      | 
+|    @access        Private                     |
+------------------------------------------------|
+*/
+router.post('/upload', 
+            passport.authenticate('jwt', {session: false}), 
+            upload.single('image'), 
+            (req, res) => {
+
+  if(req.file){
+    const file = dataUri(req).content;
+    uploader.upload(file)
+      .then(result => {
+        if(result) req.user.image = cloudinary.url(result.public_id, 
+                                    {width: 200, 
+                                      height: 200, 
+                                      crop: "thumb", 
+                                      gravity: "face"
+                                    });
+        Profile.findOne({ user: req.user.id }).then(profile => {
+          req.user
+            .save()
+            .then(result => {
+              res.status(201).json({
+                message: "photo uplaoded"
+              });
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json({
+                error: err
+              });
+            });
+        })
+      })
+      .catch(err => {
+        res.status(400).json({
+          message: "Something went wrong",
+          err: err
+        });
+      });
+  }
+});
 
 /*
 ------------------------------------------------|

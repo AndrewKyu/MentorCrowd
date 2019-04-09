@@ -6,6 +6,9 @@ const ProfileSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users"
     },
+    image:{
+        type: String
+    },
     handle:{
         type: String,
         required: true,
@@ -59,7 +62,7 @@ const ProfileSchema = new Schema({
                 default: false
             },
             gpa:{
-                type: Number
+                type: String
             },
             courses:{
                     type: [String]
