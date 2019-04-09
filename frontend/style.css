@@ -118,6 +118,30 @@ p.description {
 /** index page end **/
 
 /** about page start **/
+.aboutPage {
+    text-align: center;
+    margin-top: 30px;
+}
+.aboutPage h1 {
+    text-transform: uppercase;
+}
+.aboutPage p {
+    color: #47525E!important;
+}
+.aboutPage h2 {
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 500;
+}
+.bio {
+    width: 90%;
+}
+.bioImage {
+    width: 40%;
+}
+.bioDescription {
+    width: 60%;
+}
 /** about page end **/
 
 /** companies page start **/
@@ -141,7 +165,7 @@ p.card-text {
     margin-bottom: 30px;
 }
 .companySponsorsButton button {
-    width: 400px; 
+    width: 375px; 
     margin: 0 1%; 
     display: inline-block;
     border: none;
@@ -164,6 +188,22 @@ p.companyDescription {
 /** companies page end **/
 
 /** contact page start **/
+.contactPage {
+    text-align: center;
+    margin-top: 30px;
+}
+.contactPage h1 {
+    text-transform: uppercase;
+}
+.contactPage p {
+    color: #47525E!important;
+}
+.contactPageSection {
+    text-align: center;
+    background-color: white;
+    width: 1000px;
+    margin: 0% auto;
+}
 /** contact page end **/
 
 /** register page start **/
