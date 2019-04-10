@@ -6,7 +6,7 @@ import isEmpty from "../../validation/is-empty";
 class ProfileItem extends Component {
   render() {
     const { profile } = this.props;
-    // console.log(profile.user);
+    console.log(profile.user);
     return (
       <div className="card card-body bg-light mb-3">
         <div className="row">
@@ -19,7 +19,7 @@ class ProfileItem extends Component {
             />
           </div>
           <div className="col-lg-5 col-md-4 col-8">
-            <h3>{profile.user.name}</h3>
+            {/* <h3>{profile.user.name}</h3> */}
             <p>
               {profile.status}{" "}
               {isEmpty(profile.company) ? null : (
