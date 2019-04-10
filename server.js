@@ -11,7 +11,7 @@ const posts = require('./routes/api/post');
 
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+// const io = require('socket.io')(http);
 cloudinaryConfig(app);
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -58,13 +58,13 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-io.on('connection', (socket) => {
-  //console.log('a user is connected');
-  socket.on('chat message', (msg) => {
-      console.log(`Message: ${msg}`);
-      io.emit('chat message', msg);
-  });
-});
+// io.on('connection', (socket) => {
+//   //console.log('a user is connected');
+//   socket.on('chat message', (msg) => {
+//       console.log(`Message: ${msg}`);
+//       io.emit('chat message', msg);
+//   });
+// });
 
 const port = process.env.PORT || 5000;
 
