@@ -19,7 +19,7 @@ class Navbar extends Component {
     let authLinks;
     
     if(user !== null){
-      console.log(user.id);
+      // console.log(user.id);
       // const handle = profile.handle;
       authLinks = (
         <ul className="navbar-nav ml-auto">
