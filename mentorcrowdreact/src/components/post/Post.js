@@ -29,7 +29,7 @@ class Post extends Component {
     }
 
     return (
-      <div className="post">
+      <div className="post mt-4">
         <div className="container">
             <div className="row">
                 <div className="col-md-12">

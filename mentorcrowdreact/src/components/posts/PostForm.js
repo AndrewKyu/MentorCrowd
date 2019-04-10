@@ -42,7 +42,7 @@ class PostForm extends Component {
     render() {
     const { errors } = this.state;
     return (
-        <div className="post-form mb-3">
+        <div className="post-form mb-3 mt-4">
             <div className="card card-info">
                 <div className="card-header bg-info text-white">
                     Say Somthing...
