@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
+import logo from '../../img/logo-white.png';
 
 class Navbar extends Component {
   onLogoutClick(e){
@@ -116,7 +117,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-sm sticky-top">
           <Link className="navbar-brand" to="/feed">
-            <img src="https://via.placeholder.com/40x40" alt="logo"/>
+            <img src={logo} alt="logo" className="mc-logo"/>
           </Link>
           <button className="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
