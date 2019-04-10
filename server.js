@@ -38,9 +38,19 @@ app.use('/api/profile', profile);
 app.use("/api/posts", posts);
 app.use('/api/message', messages);
 
+// // Server static assets if in production
+// if(process.env.NODE_ENV === 'production'){
+//   //Set static folder
+//   app.use(express.static('mentorcrowdreact/build'));
+
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'mentorcrowdreact', 'build', 'index.html'));
+//   });
+// }
+
 // Server static assets if in production
-if(process.env.NODE_ENV === 'production'){
-  //Set static folder
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
   app.use(express.static('mentorcrowdreact/build'));
 
   app.get('*', (req, res) => {
