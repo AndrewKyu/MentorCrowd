@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 class ProfileGithub extends Component {
@@ -39,9 +38,10 @@ class ProfileGithub extends Component {
           <div className="col-md-6">
             <h1>{repo.name}</h1>
             <h4>
-              <Link to={repo.html_url} className="text-info" target="_blank">
+              {/* a ref */}
+              <a href={repo.html_url} className="text-info" target="_blank" rel="noopener noreferrer">
                 {repo.name}
-              </Link>
+              </a>
             </h4>
             <p>{repo.description}</p>
           </div>
