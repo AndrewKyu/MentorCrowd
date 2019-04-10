@@ -35,16 +35,16 @@ class Navbar extends Component {
         </li>
         <li className="nav-item">
           <Link className="nav-link" to='/feed'>
-            Post Feed
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to='/dashboard'>
             Home
           </Link>
         </li>
         <li className="nav-item">
             <Link className="nav-link" to="/profiles">Developers</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to='/dashboard'>
+            Edit Profile
+          </Link>
         </li>
         <li className="nav-item">
             <a 
@@ -115,7 +115,7 @@ class Navbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-sm sticky-top">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/feed">
             <img src="https://via.placeholder.com/40x40" alt="logo"/>
           </Link>
           <button className="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

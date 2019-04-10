@@ -12,6 +12,7 @@ import {
 
 //Add Post
 export const addPost = postData => dispatch => {
+    dispatch(clearErrors());
     axios
         .post('/api/posts', postData)
         .then(res => 
@@ -113,9 +114,27 @@ export const getPost = (id) => dispatch => {
 
 //Add Comment
 export const addComment = (postId, commentData) => dispatch => {
-    // dispatch(clearErrors());
+    dispatch(clearErrors());
     axios
         .post(`/api/posts/comment/${postId}`, commentData)
+        .then(res => 
+            dispatch({
+                type: GET_POST,
+                payload: res.data
+            })    
+        )
+        .catch(err => 
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+}
+
+//Delete Comment
+export const deleteComment = (postId, commentId) => dispatch => {
+    axios
+        .delete(`/api/posts/comment/${postId}/${commentId}`)
         .then(res => 
             dispatch({
                 type: GET_POST,
@@ -138,8 +157,8 @@ export const setPostLoading = () => {
 }
 
 // Clear errors
-// export const clearErrors = () => {
-//     return {
-//       type: CLEAR_ERRORS
-//     };
-//   };
+export const clearErrors = () => {
+    return {
+      type: CLEAR_ERRORS
+    };
+  };
