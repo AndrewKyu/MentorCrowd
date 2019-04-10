@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import isEmpty from "../../validation/is-empty";
 import { getProfileByUserId, getProfileByHandle, getCurrentProfile } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 
@@ -33,11 +31,11 @@ class SelfProfile extends Component {
         profileContent = (
           <div>
               <div className="row">
-                <div className="col-md-6 mb-6">
+                {/* <div className="col-md-6 mb-6">
                   <Link to="/dashboard" className="btn btn-light mb-3 float-left mt-3">
                     Back To Dashboard
                   </Link> 
-                </div>
+                </div> */}
                 <div className="col-md-6" />
               </div>
               <ProfileHeader profile={profile} />
@@ -46,7 +44,6 @@ class SelfProfile extends Component {
                 education={profile.education}
                 experience={profile.experience}
               />
-              {/* <ProfileGithub username={profile.githubusername}/> */}
               {GitHubInfo}
           </div>
         );

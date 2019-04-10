@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
+import logo from '../../img/logo-white.png';
 
 class Navbar extends Component {
   onLogoutClick(e){
@@ -14,11 +15,11 @@ class Navbar extends Component {
   
   render() {
     const { isAuthenticated, user } = this.props.auth;
-    const { profile } = this.props.profile;
+    // const { profile } = this.props.profile;
     let authLinks;
     
     if(user !== null){
-      console.log(user.id);
+      // console.log(user.id);
       // const handle = profile.handle;
       authLinks = (
         <ul className="navbar-nav ml-auto">
@@ -34,7 +35,7 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to='/dashboard'>
+          <Link className="nav-link" to='/feed'>
             Home
           </Link>
         </li>
@@ -42,10 +43,16 @@ class Navbar extends Component {
             <Link className="nav-link" to="/profiles">Developers</Link>
         </li>
         <li className="nav-item">
+          <Link className="nav-link" to='/dashboard'>
+            Edit Profile
+          </Link>
+        </li>
+        <li className="nav-item">
             <a 
               href="" 
               onClick={this.onLogoutClick.bind(this)} 
               className="nav-link"
+              rel="noopener noreferrer"
             >
               Logout
             </a>
@@ -53,41 +60,7 @@ class Navbar extends Component {
       </ul>
       );
     }
-    // if(profile !== null){
-    //   const handle = profile.handle;
-    //   authLinks = (
-    //     <ul className="navbar-nav ml-auto">
-    //     {/* <li className="nav-item">
-    //       <Link className="nav-link" to={`/profile/${handle}`}>
-    //         <img
-    //           className="rounded-circle"
-    //           src={(user.image) ? user.image : 'https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg'}
-    //           alt={user.name}
-    //           style={{width: '25px', marginRight: '5px'}}
-    //           title="Please upload profile picture"
-    //         />
-    //       </Link>
-    //     </li> */}
-    //     <li className="nav-item">
-    //       <Link className="nav-link" to='/dashboard'>
-    //         Home
-    //       </Link>
-    //     </li>
-    //     <li className="nav-item">
-    //         <Link className="nav-link" to="/profiles">Developers</Link>
-    //     </li>
-    //     <li className="nav-item">
-    //         <a 
-    //           href="" 
-    //           onClick={this.onLogoutClick.bind(this)} 
-    //           className="nav-link"
-    //         >
-    //           Logout
-    //         </a>
-    //     </li>
-    //   </ul>
-    //   );
-    // }
+
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -102,16 +75,13 @@ class Navbar extends Component {
         <li className="nav-item">
             <Link className="nav-link" to="/contact">Contact</Link>
         </li>
-        <li className="nav-item">
-            <Link className="nav-link" to="/profiles">Developers</Link>
-        </li>
       </ul>
     );
 
     return (
       <nav className="navbar navbar-expand-sm sticky-top">
-          <Link className="navbar-brand" to="/">
-            <img src="https://via.placeholder.com/40x40" alt="logo"/>
+          <Link className="navbar-brand" to="/feed">
+            <img src={logo} alt="logo" className="mc-logo"/>
           </Link>
           <button className="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
