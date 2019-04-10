@@ -28,20 +28,21 @@ class PostItem extends Component {
   }
 
   render() {
-    const { post, auth, showActions } = this.props;
+    const { post, auth, showActions, user } = this.props;
+    console.log(auth.user.id);
 
     return (
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-5">
-            <a href="profile.html">
+            <Link to={`/profile/user/${auth.user.id}`}>
               <img
                 className="rounded-circle d-none d-md-block"
                 src={post.avatar}
                 alt=""
                 style={{margin: 'auto'}}
               />
-            </a>
+            </Link>
             <br />
             <p className="text-center">{post.name}</p>
           </div>
