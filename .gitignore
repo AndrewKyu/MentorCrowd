@@ -1,7 +1,6 @@
 /node_modules
 /uploads
 package-lock.json
-/config/keys.js
 /config/keys_dev.js
 /config/cloudinaryConfig.js
 .DS_Store
