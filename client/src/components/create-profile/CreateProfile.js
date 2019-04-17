@@ -6,7 +6,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import InputGroup from "../common/InputGroup";
 import SelectListGroup from "../common/SelectListGroup";
-import { createProfile } from '../../actions/profileActions';
+import { createProfile, uploadProfilePic } from '../../actions/profileActions';
 
 class CreateProfile extends Component {
     constructor(props){
@@ -26,6 +26,7 @@ class CreateProfile extends Component {
             linkedin: '',
             youtube: '',
             instagram: '',
+            image: '',
             errors: {}
         };
         this.onChange = this.onChange.bind(this);
@@ -46,13 +47,22 @@ class CreateProfile extends Component {
             facebook: this.state.facebook,
             linkedin: this.state.linkedin,
             youtube: this.state.youtube,
-            instagram: this.state.instagram
+            instagram: this.state.instagram,
+            image: this.state.selectedFile
         };
+        console.log(profileData.image);
+        const fd = new FormData();
+        fd.append('image', profileData.image);
         this.props.createProfile(profileData, this.props.history);
+        this.props.uploadProfilePic(fd);
     }
     onChange(e){
         this.setState({[e.target.name]: e.target.value});
     }
+    fileHandler = e => {
+        this.setState({ selectedFile: e.target.files[0] });
+        console.log(e.target.files[0]);
+     };
     componentWillReceiveProps(nextProps){
         if(nextProps.errors){
             this.setState({errors: nextProps.errors});
@@ -212,11 +222,14 @@ class CreateProfile extends Component {
                             <span className="text-muted">Optional</span>
                             </div>
                             {socialInputs}
+                            <p>Upload new profile picture: </p>
+                            <input type="file" onChange={this.fileHandler}/>
+                            {/* <button onClick={this.uploadPic}>Upload</button> */}
                             <input
                             type="submit"
                             value="Submit"
                             className="btn btn-info btn-block mt-4"
-                            />
+                            />        
                     </form>
                 </div>
             </div>
@@ -228,7 +241,8 @@ class CreateProfile extends Component {
 
 CreateProfile.propTypes = {
     profile: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    uploadProfilePic: PropTypes.func.isRequired
 }
 
 const mapStateToProp = state => ({
@@ -238,5 +252,5 @@ const mapStateToProp = state => ({
 
 export default connect(
     mapStateToProp,
-    { createProfile }
+    { createProfile, uploadProfilePic }
   )(withRouter(CreateProfile));
