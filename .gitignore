@@ -2,5 +2,5 @@
 /uploads
 package-lock.json
 /config/keys_dev.js
-# /config/cloudinaryConfig.js
+/config/cloudinaryConfig.js
 .DS_Store
