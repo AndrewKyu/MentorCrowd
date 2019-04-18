@@ -26,6 +26,7 @@ import Profile from './components/profile/Profile'
 import ProfileById from './components/profile/ProfileID';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
+import Messenger from './components/Messenger/Messenger';
 
 
 //Check for token
@@ -87,6 +88,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/post/:id" component={ Post } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/Messenger" component={ Messenger } />
               </Switch>
             </div>
           </div>
