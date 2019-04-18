@@ -4,17 +4,22 @@ import { connect } from 'react-redux';
 import { getProfileByUserId, getProfileByHandle, getCurrentProfile } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 
-import ProfileGithub from "../profile/ProfileGithub";
-import ProfileCreds from "../profile/ProfileCreds";
-import ProfileAbout from "../profile/ProfileAbout";
-import ProfileHeader from "../profile/ProfileHeader";
+import ProfileGithub from "./ProfileGithub";
+import ProfileCreds from "./ProfileCreds";
+import ProfileAbout from "./ProfileAbout";
+import ProfileHeader from "./ProfileHeader";
 
-class SelfProfile extends Component {
+class ProfileById extends Component {
   componentDidMount(){
-    // 
-    this.props.getCurrentProfile();
+    if(this.props.match.params.user_id){
+      this.props.getProfileByUserId(this.props.match.params.user_id);
+    }
   }
-
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.profile === null && this.props.profile.loading) {
+      this.props.history.push("/not-found");
+    }
+  }
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
@@ -87,7 +92,7 @@ class SelfProfile extends Component {
   }
 }
 
-SelfProfile.propTypes = {
+ProfileById.propTypes = {
   getProfileByUserId: PropTypes.func.isRequired,
   getProfileByHandle: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
@@ -99,4 +104,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, { getProfileByUserId, getProfileByHandle, getCurrentProfile })(SelfProfile);
+export default connect(mapStateToProps, { getProfileByUserId, getProfileByHandle, getCurrentProfile })(ProfileById);
