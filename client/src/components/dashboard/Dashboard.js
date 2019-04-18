@@ -29,7 +29,7 @@ class Dashboard extends Component {
         if(Object.keys(profile).length > 0){
           dashboardContent = (
             <div>
-              <ProfileActions />
+              <ProfileActions profile={profile}/>
               <Experience experience={profile.experience} />
               <Education education={profile.education} />
               <div style={{marginBottom: '60px'}}/>

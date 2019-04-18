@@ -29,12 +29,12 @@ class PostItem extends Component {
 
   render() {
     const { post, auth, showActions } = this.props;
-
+    
     return (
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-5">
-            <Link to={`/profile/user/${auth.user.id}`}>
+            <Link to={`/profile/user/${post.user}`}>
               <img
                 className="rounded-circle d-none d-md-block"
                 src={post.avatar}
@@ -69,7 +69,7 @@ class PostItem extends Component {
                   <i className="text-secondary fas fa-thumbs-down" />
                 </button>
                 <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
-                  Comments
+                  {(post.comments.length === 0) ? 'Comments' : `Comments (${post.comments.length})`}
                 </Link>
                 {post.user === auth.user.id ? (
                   <button

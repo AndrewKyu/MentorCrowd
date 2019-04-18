@@ -124,7 +124,7 @@ router.get('/handle/:handle', (req, res) => {
 /*
 ---------------------------------------------------|
 |    @route         GET api/profile/user/:user_id  |
-|    @description   Get profile by handle          | 
+|    @description   Get profile by user id         | 
 |    @access        Public                         |
 ---------------------------------------------------|
 */

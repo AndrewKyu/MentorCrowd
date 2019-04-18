@@ -42,12 +42,11 @@ export const getProfileByHandle = handle => dispatch => {
 //Get Profile by ID
 export const getProfileByUserId = userID => dispatch => {
   dispatch(setProfileLoading());
-  console.log('we here?');
   axios
     .get(`/api/profile/user/${userID}`)
     .then(res =>
       dispatch({
-        type: GET_SELF,
+        type: GET_PROFILE,
         payload: res.data
       })
     )
