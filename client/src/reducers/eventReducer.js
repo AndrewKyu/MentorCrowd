@@ -1,4 +1,4 @@
-import { ADD_EVENT, GET_EVENT, EVENT_LOADING, DELETE_EVENT } from '../actions/types'
+import { ADD_EVENT, GET_EVENT, GET_EVENTS, EVENT_LOADING, DELETE_EVENT } from '../actions/types'
 
 const initialState = {
     events: [],
