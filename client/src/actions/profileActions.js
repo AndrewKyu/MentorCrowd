@@ -202,3 +202,16 @@ export const uploadProfilePic = (picData) => dispatch => {
       })
     )
 }
+
+//Add profile rating by 1
+export const addRating = id => dispatch => {
+  axios
+    .post(`/api/profile/rateup/${id}`)
+    .then(res => dispatch(getProfiles()))
+    .catch(err => 
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+};

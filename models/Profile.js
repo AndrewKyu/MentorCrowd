@@ -33,6 +33,14 @@ const ProfileSchema = new Schema({
     githubusername:{
         type: String
     },
+    mentorpoints: [
+        {
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: "users"
+            }
+        }
+    ],
     education: [
         {
             school:{
