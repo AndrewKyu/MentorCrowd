@@ -7,6 +7,9 @@ const EventSchema = new Schema({
         type: String,
         required: true
     },
+    host: {
+        type: String
+    },
     description: {
         type: String, 
         required: true

@@ -48,9 +48,10 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
     if(!isValid){
         return res.status(400).json(errors);
     }
-
+    
     const newEvent = new Event({
         event: req.body.event,
+        host: req.body.host,
         description: req.body.description,
         from: req.body.from,
         to: req.body.to,
