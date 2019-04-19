@@ -75,7 +75,7 @@ class EventForm extends Component {
                                 onChange={this.onChange}
                                 info="Describe how amazing your event is"
                             />
-                            <h6>Event Date</h6>
+                            <h6>* Event Date</h6>
                             <TextFieldGroup 
                                 name="eventdate"
                                 type="date"
@@ -109,14 +109,13 @@ class EventForm extends Component {
                             />
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" className="btn btn-info">Submit</button>
+                                <button type="submit" className="btn btn-info" data-dismiss={(!errors) ? "modal" : ""}>Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
                </div>
             </div>
-            
         )
     }
 }
