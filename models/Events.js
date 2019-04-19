@@ -3,12 +3,13 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const EventSchema = new Schema({
+    user:{
+        type: Schema.Types.ObjectId,
+        ref: "users"
+    },
     event: {
         type: String,
         required: true
-    },
-    host: {
-        type: String
     },
     description: {
         type: String, 

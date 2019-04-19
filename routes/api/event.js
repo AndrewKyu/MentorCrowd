@@ -37,6 +37,21 @@ router.get("/", passport.authenticate("jwt", { session: false }), (req, res) => 
 
 /*
 ----------------------------------------|
+|    @route         GET api/posts/:id   |
+|    @description   Get post by id      | 
+|    @access        Public              |
+----------------------------------------|
+*/
+router.get(":/id", (req, res) => {
+    Event.findById(req.params.id)
+        .then(event => res.json(event))
+        .catch(err => 
+            res.status(404).json({ noeventfound: "No event found with that ID" })
+        );
+});
+
+/*
+----------------------------------------|
 |    @route         POST api/events/    |
 |    @description   Create Event        | 
 |    @access        Private             |
@@ -51,7 +66,6 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
     
     const newEvent = new Event({
         event: req.body.event,
-        host: req.body.host,
         description: req.body.description,
         from: req.body.from,
         to: req.body.to,
@@ -104,21 +118,23 @@ router.post(
     "/unattend/:id",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-        Event.findById(req.params.id)
-        .then(event => {
-            if(event.attendees.filter(attendee => attendee.user.toString() === req.user.id).length == 0){
-                return res.status(400).json({ notattending: "You haven't RSVPed for this event yet"});
-            }
-            
-            const removeIndex = event.attendees
-                .map(person => person.user.toString())
-                .indexOf(req.user._id);
-            
-            event.attendees.splice(removeIndex, 1);
-            
-            event.save().then(event => res.json(event));
+        Profile.findOne({ user: req.user.id }).then(profile => {
+            Event.findById(req.params.id)
+            .then(event => {
+                if(event.attendees.filter(attendee => attendee.user.toString() === req.user.id).length == 0){
+                    return res.status(400).json({ notattending: "You haven't RSVPed for this event yet"});
+                }
+                
+                const removeIndex = event.attendees
+                    .map(person => person.user.toString())
+                    .indexOf(req.user._id);
+                
+                event.attendees.splice(removeIndex, 1);
+                
+                event.save().then(event => res.json(event));
         })
         .catch(err => res.status(404).json({ eventnotfound: "No event found" }));
+        });
     }
 );
 /*
