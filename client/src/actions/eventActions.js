@@ -6,26 +6,29 @@ import {
     GET_EVENTS,
     EVENT_LOADING,
     DELETE_EVENT,
-    GET_EVENT,
+    // GET_EVENT,
     CLEAR_ERRORS
 } from './types';
 
 //Add Post
-export const addEvent = eventData => dispatch => {
+export const addEvent = (eventData, toggle) => dispatch => {
     dispatch(clearErrors());
     axios
         .post('/api/events', eventData)
-        .then(res => 
-            dispatch({
-                type: ADD_EVENT,
-                payload: res.data
-            })    
+        .then(res => {
+                dispatch({
+                    type: ADD_EVENT,
+                    payload: res.data
+                });
+                toggle();
+            }
         )
-        .catch(err => 
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
+        .catch(err => {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                }); 
+            }
         );
 }
 

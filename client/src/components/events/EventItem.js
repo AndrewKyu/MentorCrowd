@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import { deleteEvent } from '../../actions/eventActions';
 
 class EventItem extends Component {
   render() {
     const { event, auth, showActions } = this.props;
+    console.log(this.props);
     return (
-      <div className="card card-body mb-3">
+      <div className="card card-body mb-3 mt-4">
         <div className="row">
             <div className="col-md-5">
                 <img

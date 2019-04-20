@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { Button, Modal } from 'reactstrap';
 
 import { getEvents } from '../../actions/eventActions';
 import { getCurrentProfile } from '../../actions/profileActions';
@@ -11,15 +12,28 @@ import EventForm from './EventForm';
 import Spinner from '../common/Spinner';
 
 class Events extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            fromForm: {}
+        }
+        this.toggle = this.toggle.bind(this);
+    }
     componentDidMount(){
         this.props.getEvents();
         this.props.getCurrentProfile();
+    }
+    
+    toggle(){
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
     }
 
   render() {
     const { events, loading } = this.props.event;
     let eventContent;
-    
+
     if(events === null || loading){
         eventContent = <Spinner />
     }else{
@@ -31,26 +45,11 @@ class Events extends Component {
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                    <button type="button" className="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#form">
-                        Create Event
-                    </button>
+                    <Button color="primary" onClick={this.toggle} className="mt-3">Create Event</Button>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                            <EventForm toggle={this.toggle}/>
+                    </Modal>
                     {eventContent}
-                    <div className="modal fade" id="form" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Create Event</h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <EventForm />
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +61,7 @@ class Events extends Component {
 Events.propTypes = {
     event: PropTypes.object.isRequired,
     getEvents: PropTypes.func.isRequired,
-    getCurrentProfile: PropTypes.func.isRequired
+    getCurrentProfile: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
