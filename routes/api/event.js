@@ -69,7 +69,8 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         description: req.body.description,
         from: req.body.from,
         to: req.body.to,
-        minpoints: req.body.minpoints
+        minpoints: req.body.minpoints,
+        eventdate: req.body.eventdate
     });
 
     newEvent.save().then(event => res.json(event));

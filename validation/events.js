@@ -8,6 +8,7 @@ module.exports = function validateEventInput(data) {
     data.description = !isEmpty(data.description) ? data.description : "";
     data.from = !isEmpty(data.from) ? data.from : "";
     data.to = !isEmpty(data.to) ? data.to : "";
+    data.eventdate = !isEmpty(data.eventdate) ? data.eventdate : "";
 
     if(Validator.isEmpty(data.event)){
       errors.event = "Event name is required";
@@ -25,6 +26,9 @@ module.exports = function validateEventInput(data) {
         errors.to = "Please specify an end time";
     }
 
+    if(Validator.isEmpty(data.eventdate)){
+      errors.eventdate = "Date is required";
+  }
     
     return {
         errors,
