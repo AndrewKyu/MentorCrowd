@@ -8,18 +8,21 @@ import Moment from 'react-moment';
 import { deleteEvent } from '../../actions/eventActions';
 
 class EventItem extends Component {
+    onDeleteClick(id){
+        this.props.deleteEvent(id);
+    }
   render() {
     const { event, auth, showActions } = this.props;
-    console.log(this.props);
+    
     return (
       <div className="card card-body mb-3 mt-4">
         <div className="row">
             <div className="col-md-5">
                 <img
                     className="rounded-circle d-none d-md-block"
-                    src={"https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg"}
+                    src={(event.user.image) ? event.user.image : "https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg"}
                     alt=""
-                    style={{margin: 'auto', width: '200px', height: '200px'}}
+                    style={{margin: 'auto', width: '175px', height: '175px'}}
                 />
             </div>
             <div className="col-md-7">
@@ -42,6 +45,10 @@ class EventItem extends Component {
                 <button type="button" className="btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#exampleModal">
                     View Attendance
                 </button>
+                {(event.user._id === auth.user.id) ? (
+                <button onClick={this.onDeleteClick.bind(this, event._id)} className="btn btn-danger btn-sm" type="button">
+                    <i className="fas fa-times" />
+                </button>) : null}
 
                 <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">

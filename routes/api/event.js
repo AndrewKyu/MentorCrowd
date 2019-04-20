@@ -31,19 +31,21 @@ router.get("/", passport.authenticate("jwt", { session: false }), (req, res) => 
 
     Event.find()
         .sort({ date: -1 })
+        .populate("user")
         .then(events => res.json(events))
         .catch(err => res.status(404).json({ noeventsfound: "No Events Found "}));
 });
 
 /*
 ----------------------------------------|
-|    @route         GET api/posts/:id   |
-|    @description   Get post by id      | 
+|    @route         GET api/events/:id  |
+|    @description   Get events by id    | 
 |    @access        Public              |
 ----------------------------------------|
 */
 router.get(":/id", (req, res) => {
     Event.findById(req.params.id)
+        .populate("user")
         .then(event => res.json(event))
         .catch(err => 
             res.status(404).json({ noeventfound: "No event found with that ID" })
@@ -63,8 +65,9 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
     if(!isValid){
         return res.status(400).json(errors);
     }
-    
+
     const newEvent = new Event({
+        user: req.user.id,
         event: req.body.event,
         description: req.body.description,
         from: req.body.from,

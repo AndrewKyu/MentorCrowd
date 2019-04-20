@@ -28,8 +28,11 @@ router.get("/test", (req, res) => res.json({ msg: "post works" }));
 */
 router.get("/", (req, res) => {
   Post.find()
+    .populate("user")
     .sort({ date: -1 })
-    .then(posts => res.json(posts))
+    .then(posts => {
+      res.json(posts)
+    })
     .catch(err => res.status(404).json({ nopostsfound: "No posts found" }));
 });
 
@@ -42,6 +45,7 @@ router.get("/", (req, res) => {
 */
 router.get("/:id", (req, res) => {
   Post.findById(req.params.id)
+    .populate("comments.user")
     .then(post => res.json(post))
     .catch(err =>
       res.status(404).json({ nopostfound: "No post found with that ID" })
@@ -190,7 +194,7 @@ router.post(
       //if any errors, send 400 with errors object
       return res.status(400).json(errors);
     }
-
+    console.log(req.body);
     Post.findById(req.params.id)
       .then(post => {
         const newComment = {
