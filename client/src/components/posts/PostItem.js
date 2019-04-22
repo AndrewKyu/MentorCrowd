@@ -35,7 +35,7 @@ class PostItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-5">
-            <Link to={`/profile/user/${post.user}`}>
+            <Link to={`/profile/user/${post.user._id}`}>
               <img
                 className="rounded-circle d-none d-md-block"
                 src={(post.user.image) ? post.user.image : 'https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg'}
