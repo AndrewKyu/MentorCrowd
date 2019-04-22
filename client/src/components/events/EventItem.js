@@ -6,9 +6,10 @@ import Moment from 'react-moment';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import EventAttendanceList from './EventAttendanceList';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { deleteEvent, attendEvent, unattendEvent } from '../../actions/eventActions';
+import { deleteEvent, attendEvent, unattendEvent, getEvent } from '../../actions/eventActions';
+import { getProfileByUserId } from '../../actions/profileActions';
 
 class EventItem extends Component {
     constructor(props){
@@ -18,6 +19,10 @@ class EventItem extends Component {
         }
         this.toggle = this.toggle.bind(this);
     }
+    componentDidMount(){
+        this.props.getProfileByUserId(this.props.auth.user.id);
+    }
+
     onDeleteClick(id){
         this.props.deleteEvent(id);
     }
@@ -44,8 +49,19 @@ class EventItem extends Component {
     }
   render() {
     const { event, auth, showActions } = this.props;
-    
+    const { profile } = this.props.profile;
+
     let attendanceStatus = (this.findUserAttend(event.attendees));
+    let userPoints = 0;
+    
+    const isHost = (auth.user.id === event.user._id);
+    
+    if(profile !== null){
+        userPoints = profile.mentorpoints.length;
+    }
+    
+    //if user has enough points or is the host, do not disable the button. otherwise disable it
+    let attendable = (userPoints >= event.minpoints || isHost) ? false : true;
     
     return (
       <div className="card card-body mb-3 mt-4">
@@ -79,14 +95,16 @@ class EventItem extends Component {
             <div className="eventactions d-block m-auto">
                 {showActions ? (
                     <span>
-                        <button 
+                        <Button 
                             onClick={(attendanceStatus) ? this.onUnattendClick.bind(this, event._id) : this.onAttendClick.bind(this, event._id)}
                             type="button"
-                            className={classnames("btn btn-primary btn-sm m-1", {
+                            color="primary"
+                            disabled={attendable}
+                            className={classnames("btn-sm m-1", {
                             'btn-danger': attendanceStatus
-                        })}>
+                        })} >
                             {attendanceStatus ? "Unattend" : "Attend"}
-                        </button>
+                        </Button>
                     </span>
                 ) : null}
                 
@@ -105,6 +123,9 @@ class EventItem extends Component {
                         </ModalFooter>
                 </Modal>
                 
+                {(event.user._id === auth.user.id) ? (
+                <Link to={`/edit-event/${event._id}`} className="btn btn-primary btn-sm m-1">Edit Event</Link>) : null}
+                
                 {/* Delete Event Button */}
                 {(event.user._id === auth.user.id) ? (
                 <button onClick={this.onDeleteClick.bind(this, event._id)} className="btn btn-danger btn-sm" type="button">
@@ -112,6 +133,8 @@ class EventItem extends Component {
                 </button>) : null}
             </div>
         </div>
+        <br/>
+        {(attendable) ? "You do not have enough points to attend this event" : ""}
       </div>
     )
   }
@@ -122,15 +145,19 @@ EventItem.defaultProps = {
 };
 
 EventItem.propTypes = {
+    getEvent: PropTypes.func.isRequired,
     attendEvent: PropTypes.func.isRequired,
     unattendEvent: PropTypes.func.isRequired,
     deleteEvent: PropTypes.func.isRequired,
+    getProfileByUserId: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
     event: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    profile: state.profile
 });
 
-export default connect(mapStateToProps, { deleteEvent, attendEvent, unattendEvent })(EventItem);
+export default connect(mapStateToProps, { deleteEvent, attendEvent, unattendEvent, getEvent, getProfileByUserId })(EventItem);

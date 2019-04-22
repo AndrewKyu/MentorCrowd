@@ -20,13 +20,13 @@ const validateEventInput = require('../../validation/events');
 router.get('/test', (req, res) => res.json({ msg: "event works "}));
 
 /*
-------------------------------------|
-|    @route         GET api/events/ |
-|    @description   Get events      | 
-|    @access        Public          |
-------------------------------------|
+---------------------------------------|
+|    @route         GET api/events/all |
+|    @description   Get events         | 
+|    @access        Public             |
+---------------------------------------|
 */
-router.get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+router.get("/all", passport.authenticate("jwt", { session: false }), (req, res) => {
     const errors = {};
 
     Event.find()
@@ -43,7 +43,8 @@ router.get("/", passport.authenticate("jwt", { session: false }), (req, res) => 
 |    @access        Public              |
 ----------------------------------------|
 */
-router.get(":/id", (req, res) => {
+router.get("/:id", (req, res) => {
+    console.log("we here");
     Event.findById(req.params.id)
         .populate("user")
         .then(event => res.json(event))
@@ -76,8 +77,33 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         minpoints: req.body.minpoints,
         eventdate: req.body.eventdate
     });
-
+    
     newEvent.save().then(event => res.json(event));
+});
+
+router.post('/update/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    const { errors, isValid } = validateEventInput(req.body);
+
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
+    const newEvent = {
+        user: req.user.id,
+        event: req.body.event,
+        description: req.body.description,
+        from: req.body.from,
+        to: req.body.to,
+        location: req.body.location, 
+        minpoints: req.body.minpoints,
+        eventdate: req.body.eventdate
+    };
+
+    Event.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: newEvent },
+        {new: true}
+    ).then(event => res.json(event));
 });
 /*
 ------------------------------------------------|
@@ -95,7 +121,7 @@ router.post(
             Event.findById(req.params.id)
             .then(event => {
                 //If the user doesn't have enough points, cannot attend event
-                if(profile.mentorpoints.length < event.minpoints){
+                if((profile.mentorpoints.length < event.minpoints) && (req.user.id === event.user)){
                     return res.status(400).json({ notenoughpts: "You do not have enough points" });
                 }
                 //If user already hit "attend" cannot hit it again

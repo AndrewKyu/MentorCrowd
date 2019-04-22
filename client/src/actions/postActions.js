@@ -31,7 +31,7 @@ export const addPost = postData => dispatch => {
         );
 }
 
-//Add Post
+//Get Posts
 export const getPosts = () => dispatch => {
     dispatch(setPostLoading());
 

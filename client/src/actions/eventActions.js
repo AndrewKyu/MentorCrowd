@@ -6,7 +6,7 @@ import {
     GET_EVENTS,
     EVENT_LOADING,
     DELETE_EVENT,
-    // GET_EVENT,
+    GET_EVENT,
     CLEAR_ERRORS
 } from './types';
 
@@ -38,7 +38,7 @@ export const getEvents = () => dispatch => {
     dispatch(setEventLoading());
 
     axios
-        .get('/api/events')
+        .get('/api/events/all')
         .then(res => 
             dispatch({
                 type: GET_EVENTS,
@@ -96,26 +96,37 @@ export const attendEvent = id => dispatch => {
       );
   };
 
-// //Get Post
-// export const getPost = (id) => dispatch => {
-//     dispatch(setPostLoading());
+// //Get Event by ID
+export const getEvent = (id) => dispatch => {
+    dispatch(setEventLoading());
 
-//     axios
-//         .get(`/api/posts/${id}`)
-//         .then(res => 
-//             dispatch({
-//                 type: GET_POST,
-//                 payload: res.data
-//             })    
-//         )
-//         .catch(err => 
-//             dispatch({
-//                 type: GET_POST,
-//                 payload: null
-//             })
-//         );
-// }
+    axios
+        .get(`/api/events/${id}`)
+        .then(res => 
+            dispatch({
+                type: GET_EVENT,
+                payload: res.data
+            })    
+        )
+        .catch(err => 
+            dispatch({
+                type: GET_EVENT,
+                payload: null
+            })
+        );
+}
 
+export const updateEvent = (eventData, id, history) => dispatch => {
+    axios
+      .post(`/api/events/update/${id}`, eventData)
+      .then(res => history.push('/events'))
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  };
 // //Add Comment
 // export const addComment = (postId, commentData) => dispatch => {
 //     dispatch(clearErrors());
