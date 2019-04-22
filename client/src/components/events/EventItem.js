@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import classnames from 'classnames';
+import classnames from 'classnames';
 import Moment from 'react-moment';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+
+import EventAttendanceList from './EventAttendanceList';
 // import { Link } from 'react-router-dom';
 
-import { deleteEvent } from '../../actions/eventActions';
+import { deleteEvent, attendEvent, unattendEvent } from '../../actions/eventActions';
 
 class EventItem extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            attendanceList: {}
+        }
+        this.toggle = this.toggle.bind(this);
+    }
     onDeleteClick(id){
         this.props.deleteEvent(id);
     }
+
+    onAttendClick(id){
+        this.props.attendEvent(id);
+    }
+
+    onUnattendClick(id){
+        this.props.unattendEvent(id);
+    }
+    findUserAttend(attends) {
+        const { auth } = this.props;
+        if(attends.filter(attend => attend.user === auth.user.id).length > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    toggle(){
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
   render() {
     const { event, auth, showActions } = this.props;
+    
+    let attendanceStatus = (this.findUserAttend(event.attendees));
     
     return (
       <div className="card card-body mb-3 mt-4">
@@ -24,6 +57,8 @@ class EventItem extends Component {
                     alt=""
                     style={{margin: 'auto', width: '175px', height: '175px'}}
                 />
+                <br/>
+                <p className="text-center">Host: {event.user.name}</p>
             </div>
             <div className="col-md-7">
                 <h2 className="text-center">             
@@ -32,42 +67,49 @@ class EventItem extends Component {
                 <p className="text-center">
                     {event.description}
                 </p>
-                <br />
+                <p className="text-center">
+                    Minimum Points Required: {event.minpoints}
+                </p>
                 <p className="text-center"><b>Date: <Moment format="MM/DD/YYYY">{event.eventdate}</Moment></b></p>
                 <p className="text-center"><b>From: {event.from} | To: {event.to}</b></p>
+                <p className="text-center">{event.location}</p>
             </div>
         </div>
         <div className="row">
             <div className="eventactions d-block m-auto">
-                <button className="btn btn-primary btn-sm m-1">
-                        Attend
-                </button>
-                <button type="button" className="btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#exampleModal">
-                    View Attendance
-                </button>
+                {showActions ? (
+                    <span>
+                        <button 
+                            onClick={(attendanceStatus) ? this.onUnattendClick.bind(this, event._id) : this.onAttendClick.bind(this, event._id)}
+                            type="button"
+                            className={classnames("btn btn-primary btn-sm m-1", {
+                            'btn-danger': attendanceStatus
+                        })}>
+                            {attendanceStatus ? "Unattend" : "Attend"}
+                        </button>
+                    </span>
+                ) : null}
+                
+                <Button onClick={this.toggle} className="btn-sm m-1" color="primary">
+                    View Attendance <span className="badge badge-light">{event.attendees.length}</span>
+                </Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader>
+                            Going
+                        </ModalHeader>
+                        <ModalBody>
+                            <EventAttendanceList eventId={event._id} attendees={event.attendees} />
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="secondary" onClick={this.toggle}>Close</Button>
+                        </ModalFooter>
+                </Modal>
+                
+                {/* Delete Event Button */}
                 {(event.user._id === auth.user.id) ? (
                 <button onClick={this.onDeleteClick.bind(this, event._id)} className="btn btn-danger btn-sm" type="button">
                     <i className="fas fa-times" />
                 </button>) : null}
-
-                <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Going</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                ...
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
       </div>
@@ -80,6 +122,8 @@ EventItem.defaultProps = {
 };
 
 EventItem.propTypes = {
+    attendEvent: PropTypes.func.isRequired,
+    unattendEvent: PropTypes.func.isRequired,
     deleteEvent: PropTypes.func.isRequired,
     event: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired
@@ -89,4 +133,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { deleteEvent })(EventItem);
+export default connect(mapStateToProps, { deleteEvent, attendEvent, unattendEvent })(EventItem);

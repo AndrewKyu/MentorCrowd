@@ -10,7 +10,8 @@ class EventFeed extends Component {
 }
 
 EventFeed.propTypes = {
-    events: PropTypes.array.isRequired
+    events: PropTypes.array.isRequired,
+    // toggle: PropTypes.func.isRequired
 }
 
 export default EventFeed;

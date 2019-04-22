@@ -29,6 +29,10 @@ module.exports = function validateEventInput(data) {
     if(Validator.isEmpty(data.eventdate)){
       errors.eventdate = "Date is required";
   }
+
+  if(Validator.isEmpty(data.location)){
+    errors.location = "Please specificy a location."
+  }
     
     return {
         errors,

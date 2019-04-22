@@ -15,6 +15,10 @@ const EventSchema = new Schema({
         type: String, 
         required: true
     },
+    location: {
+        type: String,
+        required: true
+    },
     from: {
         type: String, 
         required: true

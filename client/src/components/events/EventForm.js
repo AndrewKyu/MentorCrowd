@@ -13,6 +13,7 @@ class EventForm extends Component {
         this.state={
             event: '',
             description: '',
+            location: '',
             from: '',
             to: '',
             eventdate: '',
@@ -34,6 +35,7 @@ class EventForm extends Component {
         const eventData = {
             event: this.state.event,
             description: this.state.description,
+            location: this.state.location,
             eventdate: this.state.eventdate,
             from: this.state.from,
             to: this.state.to,
@@ -77,6 +79,14 @@ class EventForm extends Component {
                                             onChange={this.onChange}
                                             info="Describe how amazing your event is"
                                             error={errors.description}
+                                        />
+                                        <TextFieldGroup 
+                                            placeholder="* Location"
+                                            name="location"
+                                            value={this.state.location}
+                                            onChange={this.onChange}
+                                            info="Tell us where your event is taking place"
+                                            error={errors.event}
                                         />
                                         <h6>* Event Date</h6>
                                         <TextFieldGroup 

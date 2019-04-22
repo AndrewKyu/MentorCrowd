@@ -69,31 +69,31 @@ export const deleteEvent = (id) => dispatch => {
         );
 }
 
-// // Add Like
-// export const addLike = id => dispatch => {
-//     axios
-//       .post(`/api/posts/like/${id}`)
-//       .then(res => dispatch(getPosts()))
-//       .catch(err =>
-//         dispatch({
-//           type: GET_ERRORS,
-//           payload: err.response.data
-//         })
-//       );
-//   };
+// // Attend Event
+export const attendEvent = id => dispatch => {
+    axios
+      .post(`/api/events/attend/${id}`)
+      .then(res => dispatch(getEvents()))
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  };
   
-//   // Remove Like
-//   export const removeLike = id => dispatch => {
-//     axios
-//       .post(`/api/posts/unlike/${id}`)
-//       .then(res => dispatch(getPosts()))
-//       .catch(err =>
-//         dispatch({
-//           type: GET_ERRORS,
-//           payload: err.response.data
-//         })
-//       );
-//   };
+// Unattend Event
+  export const unattendEvent = id => dispatch => {
+    axios
+      .post(`/api/events/unattend/${id}`)
+      .then(res => dispatch(getEvents()))
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  };
 
 // //Get Post
 // export const getPost = (id) => dispatch => {

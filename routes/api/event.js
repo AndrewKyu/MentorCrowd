@@ -72,6 +72,7 @@ router.post('/', passport.authenticate("jwt", { session: false }), (req, res) =>
         description: req.body.description,
         from: req.body.from,
         to: req.body.to,
+        location: req.body.location, 
         minpoints: req.body.minpoints,
         eventdate: req.body.eventdate
     });
@@ -89,7 +90,7 @@ router.post(
     "/attend/:id",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-
+        
         Profile.findOne({ user: req.user.id }).then(profile => {
             Event.findById(req.params.id)
             .then(event => {
@@ -128,10 +129,10 @@ router.post(
                 if(event.attendees.filter(attendee => attendee.user.toString() === req.user.id).length == 0){
                     return res.status(400).json({ notattending: "You haven't RSVPed for this event yet"});
                 }
-                
+
                 const removeIndex = event.attendees
-                    .map(person => person.user.toString())
-                    .indexOf(req.user._id);
+                    .map(person => person.user.toString() === req.user.id.toString())
+                    .indexOf(true);
                 
                 event.attendees.splice(removeIndex, 1);
                 
