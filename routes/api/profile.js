@@ -382,6 +382,7 @@ router.get('/match', function(req, res, next) {
         if(select && select == 'count'){
           responseObject = {count: founddata.length};
         }
+
         /*  Utilizing text miner to return best matches for user
         Parse response object into separate strings using end of profile characteritic set in model
         using the string split method
@@ -405,16 +406,40 @@ router.get('/match', function(req, res, next) {
 
       function parsestring(string1){
         temp = string1.toString();
-        quotes = temp.split("'");
-        bracket1 = quotes.toString().split("[");
+        
+        bracket1 = temp.toString().split("[");
         bracket2 = bracket1.toString().split("]");
-        slash = bracket2.toString().split("\\");
-        g = slash.toString().split("skills:");
+        slash = bracket2.toString().split("\\'");
+        quotes = slash.toString().split("'");
+        g = quotes.toString().split("skills:");
         x = g[1].toString();
         y = x.split("interests:");
         //console.log(y[0]);
         my_corpus.addDoc(y[0].toString());
       }
+      function grabID(string1, string2){
+        temp = string1.toString();
+        bracket1 = temp.toString().split("[");
+        bracket2 = bracket1.toString().split("]");
+        slash = bracket2.toString().split("\\'");
+        quotes = slash.toString().split("'");
+        g = quotes.toString().split("_id:");
+        x = g[1].toString();
+        y = x.split("user:");
+        z = y[0].toString().split(",");
+        temp2 = string2.toString();
+        bracket12 = temp2.toString().split("[");
+        bracket22 = bracket12.toString().split("]");
+        slash2 = bracket22.toString().split("\\'");
+        quotes2 = slash2.toString().split("'");
+        g2 = quotes2.toString().split("_id:");
+        x2 = g2[1].toString();
+        y2 = x2.split("user:");
+        z2 = y2[0].toString().split(",");
+        console.log("Suggesting",z[0], "pairs with",z2[0]);
+        //console.log(y2[0]);
+      }
+
       // parsestring(responseObject[0]);
       // parsestring(responseObject[1]);
       // parsestring(responseObject[2]);
@@ -577,6 +602,11 @@ router.get('/match', function(req, res, next) {
               match[iter][iter2] = true;
               //recommend user2 to user1
               console.log("Matched", iter, iter2);
+              grabID(responseObject[iter], responseObject[iter2]);
+              //console.log(responseObject[iter]);
+              // console.log(profiles.user);
+              
+            
             }
             terms_doc1 = 0;
             // else{
@@ -611,17 +641,7 @@ router.get('/match', function(req, res, next) {
   })
 
 
-  // Profile.find()
-  //   .populate("user")
-  //   .then(profiles => {
-  //     if(!profiles){
-  //       errors.noprofile = "There are no profiles";
-  //       res.status(404).json(errors);
-  //     }
-  //     res.json(profiles);
-  //   })
-  //   .catch(err => res.status(404).json({profile: "There are no profiles"}));
-
+  
 
 });
 
