@@ -21,6 +21,7 @@ export const addEvent = (eventData, toggle) => dispatch => {
                     payload: res.data
                 });
                 toggle();
+                dispatch(getEvents());
             }
         )
         .catch(err => {
