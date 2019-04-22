@@ -31,6 +31,9 @@ class Navbar extends Component {
               Messenger
             </Link>
           </li>
+          <li>
+            <Link className="nav-link" to="/events">Company Events</Link>
+          </li>
           <li className="nav-item">
             <Link className="nav-link" to='/dashboard'>
               Profile

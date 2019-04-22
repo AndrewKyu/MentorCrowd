@@ -346,6 +346,26 @@ router.post('/upload',
   }
 });
 
+router.post(
+  '/rateup/:id',
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      Profile.findById(req.params.id)
+      .then(profile => {
+        if(profile.mentorpoints.filter(point => point.user.toString() === req.user.id).length > 0
+        ){
+          return res.status(400).json({ alreadyrated: "user already rated this profile" });
+        }
+
+        profile.mentorpoints.unshift({ user: req.user.id });
+
+        profile.save().then(profile => res.json(profile));
+      })
+    })
+    .catch(err => res.status(404).json({ profilenotfound: "No profile found" }));
+  }
+)
 /*
 ------------------------------------------------|
 |    @route         POST api/profile/awards     |

@@ -8,6 +8,7 @@ const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const messages = require('./routes/api/message');
 const posts = require('./routes/api/post');
+const events = require('./routes/api/event');
 
 const app = express();
 const http = require('http').Server(app);
@@ -37,6 +38,7 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use("/api/posts", posts);
 app.use('/api/message', messages);
+app.use('/api/events', events);
 
 // // Server static assets if in production
 // if(process.env.NODE_ENV === 'production'){
