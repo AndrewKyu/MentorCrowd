@@ -134,7 +134,7 @@ class EventItem extends Component {
             </div>
         </div>
         <br/>
-        {(attendable) ? "You do not have enough points to attend this event" : ""}
+        {(attendable) ? <p className="text-center">* You do not have enough points to attend this event</p> : ""}
       </div>
     )
   }
