@@ -479,12 +479,12 @@ router.delete(
 |    @access        Public                                 |
 -----------------------------------------------------------|
 */
-router.get('/match/:handle', function(req, res, next) {
+router.get('/match/:user_id', function(req, res, next) {
   var my_corpus = new textminer.Corpus([]);
   user = "";
   matchlist = {};
   matchlistsize = 0;
-  Profile.findOne({handle: req.params.handle})
+  Profile.findOne({user: req.params.user_id})
   .populate("user")
   .then(profile1 => {
     if(!profile1){
