@@ -484,6 +484,7 @@ router.get('/match/:user_id', function(req, res, next) {
   user = "";
   matchlist = {};
   matchlistsize = 0;
+  
   Profile.findOne({user: req.params.user_id})
   .populate("user")
   .then(profile1 => {
