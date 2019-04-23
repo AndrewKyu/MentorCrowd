@@ -26,6 +26,8 @@ import Profile from './components/profile/Profile'
 import ProfileById from './components/profile/ProfileID';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
+import Events from './components/events/Events';
+import EditEvent from './components/events/EditEvent';
 
 
 //Check for token
@@ -87,6 +89,12 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/post/:id" component={ Post } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/events" component={ Events } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/edit-event/:id" component={ EditEvent } />
               </Switch>
             </div>
           </div>

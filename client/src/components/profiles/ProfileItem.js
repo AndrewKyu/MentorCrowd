@@ -2,8 +2,22 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import isEmpty from "../../validation/is-empty";
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { addRating } from '../../actions/profileActions';
 
 class ProfileItem extends Component {
+  onRateClick(id){
+    this.props.addRating(id);
+  }
+  findUserRate(rates){
+    const { auth } = this.props;
+    if(rates.filter(rate => rate.user === auth.user.id).length > 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
   render() {
     const { profile } = this.props;
     return (
@@ -33,6 +47,18 @@ class ProfileItem extends Component {
             <Link to={`/profile/${profile.handle}`} className="btn btn-info">
               View Profile
             </Link>
+            <button
+                  onClick={this.onRateClick.bind(this, profile._id)}
+                  type="button"
+                  className="btn btn-light mr-1"
+                >
+                  <i
+                    className={classnames('fas fa-star', {
+                      'text-info': this.findUserRate(profile.mentorpoints)
+                    })}
+                  />
+                  <span className="badge badge-light">{profile.mentorpoints.length}</span>
+                </button>
           </div>
           <div className="col-md-4 d-none d-md-block">
             <h4>Skill Set</h4>
@@ -52,7 +78,16 @@ class ProfileItem extends Component {
 }
 
 ProfileItem.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  addRating: PropTypes.func.isRequired
 };
 
-export default ProfileItem;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { addRating })(ProfileItem);
+// {classnames('fas fa-thumbs-up', {
+//   'text-info': this.findUserLike(profile.mentorpoints)
+// })}

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { deletePost, addLike, removeLike } from '../../actions/postActions';
 
 class PostItem extends Component {
+  
   onDeleteClick(id) {
     this.props.deletePost(id);
   }
@@ -34,12 +35,12 @@ class PostItem extends Component {
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-5">
-            <Link to={`/profile/user/${post.user}`}>
+            <Link to={`/profile/user/${post.user._id}`}>
               <img
                 className="rounded-circle d-none d-md-block"
-                src={post.avatar}
+                src={(post.user.image) ? post.user.image : 'https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg'}
                 alt=""
-                style={{margin: 'auto'}}
+                style={{margin: 'auto', width: '200px', height: '200px'}}
               />
             </Link>
             <br />
@@ -71,7 +72,7 @@ class PostItem extends Component {
                 <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
                   {(post.comments.length === 0) ? 'Comments' : `Comments (${post.comments.length})`}
                 </Link>
-                {post.user === auth.user.id ? (
+                {post.user._id === auth.user.id ? (
                   <button
                     onClick={this.onDeleteClick.bind(this, post._id)}
                     type="button"

@@ -4,11 +4,13 @@ import errorReducer from './errorReducer';
 import profileReducer from './profileReducer'
 import postReducer from './postReducer';
 import selfProfileReducer from './selfProfileReducer';
+import eventReducer from './eventReducer';
 
 export default combineReducers({
     auth: authReducer,
     errors: errorReducer,
     profile: profileReducer,
     post: postReducer,
-    self: selfProfileReducer
+    self: selfProfileReducer,
+    event: eventReducer
 });

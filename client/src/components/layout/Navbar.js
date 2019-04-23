@@ -27,6 +27,9 @@ class Navbar extends Component {
               <Link className="nav-link" to="/profiles">Developers</Link>
           </li>
           <li className="nav-item">
+              <Link className="nav-link" to="/events">Company Events</Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to='/dashboard'>
               Profile
             </Link>
