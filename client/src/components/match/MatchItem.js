@@ -2,8 +2,22 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import classnames from 'classnames'
 import isEmpty from "../../validation/is-empty";
+import { addRating } from '../../actions/profileActions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class MatchItem extends Component {
+    onRateClick(id){
+        this.props.addRating(id);
+      }
+      findUserRate(rates){
+        const { auth } = this.props;
+        if(rates.filter(rate => rate.user === auth.user.id).length > 0){
+          return true;
+        }else{
+          return false;
+        }
+      }
   render() {
       const { match } = this.props;
     return (
@@ -27,17 +41,29 @@ class MatchItem extends Component {
                         )}
                     </p>
                     <Link to={`/profile/${match.handle}`} className="btn btn-info">View Profile</Link>
+                    <button
+                        onClick={this.onRateClick.bind(this, match._id)}
+                        type="button"
+                        className="btn btn-light mr-1"
+                    >
+                        <i
+                        className={classnames('fas fa-star', {
+                        'text-info': this.findUserRate(match.mentorpoints)
+                        })}
+                        />
+                        <span className="badge badge-light">{match.mentorpoints.length}</span>
+                    </button>
                 </div>
                 <div className="col-md-4 d-none d-md-block">
-                            <h4>Skill Set</h4>
-                            <ul className="list-group">
-                                {match.skills.slice(0, 4).map((skill, index) => (
-                                    <li key={index} className="list-group-item">
-                                    <i className="fa fa-check pr-1" />
-                                    {skill}
-                                    </li>
-                                ))}
-                            </ul>
+                    <h4>Skill Set</h4>
+                    <ul className="list-group">
+                        {match.skills.slice(0, 4).map((skill, index) => (
+                            <li key={index} className="list-group-item">
+                            <i className="fa fa-check pr-1" />
+                            {skill}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -46,4 +72,12 @@ class MatchItem extends Component {
   }
 }
 
-export default MatchItem;
+MatchItem.propTypes = {
+    addRating: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, { addRating })(MatchItem);
