@@ -495,11 +495,7 @@ router.get('/match/:user_id', function(req, res, next) {
     base_user = profile1.handle.toString();
     my_corpus.addDoc(profile1.skills.toString());
     //res.json(profile1);
-  })
-  //.catch(err => res.status(404).json(err));
-
-
-   Profile.find()
+    Profile.find()
     .populate("user")
     .then(profiles => {
       if(!profiles){
@@ -576,33 +572,13 @@ router.get('/match/:user_id', function(req, res, next) {
 
            // }
          }
-       
-
-
-
-
-
-
-
-
-
-
       res.json(matchlist); 
 
     })
     .catch(err => res.status(404).json({profile: "There are no profiles"}));
 
-
-
-  
-
-
-
-
-
-
-
-
+  })
+  //.catch(err => res.status(404).json(err));
   }
 );
 module.exports = router;

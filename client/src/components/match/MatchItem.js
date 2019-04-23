@@ -6,7 +6,6 @@ import isEmpty from "../../validation/is-empty";
 class MatchItem extends Component {
   render() {
       const { match } = this.props;
-      console.log(match);
     return (
       <div>
         <div className="card card-body bg-light mb-3">
