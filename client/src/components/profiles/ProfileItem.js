@@ -44,21 +44,22 @@ class ProfileItem extends Component {
                 <span>{profile.location}</span>
               )}
             </p>
-            <Link to={`/profile/${profile.handle}`} className="btn btn-info">
+            <Link to={`/profile/${profile.handle}`} className="btn btn-info m-1">
               View Profile
             </Link>
+            <Link to='/' className="btn btn-info m-1">Message</Link>
             <button
                   onClick={this.onRateClick.bind(this, profile._id)}
                   type="button"
                   className="btn btn-light mr-1"
-                >
-                  <i
-                    className={classnames('fas fa-star', {
-                      'text-info': this.findUserRate(profile.mentorpoints)
-                    })}
-                  />
-                  <span className="badge badge-light">{profile.mentorpoints.length}</span>
-                </button>
+            >
+              <i
+                className={classnames('fas fa-star', {
+                  'text-info': this.findUserRate(profile.mentorpoints)
+                })}
+              />
+                <span className="badge badge-light">{profile.mentorpoints.length}</span>
+            </button>
           </div>
           <div className="col-md-4 d-none d-md-block">
             <h4>Skill Set</h4>
