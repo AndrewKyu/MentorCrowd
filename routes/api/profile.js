@@ -482,6 +482,8 @@ router.delete(
 router.get('/match/:handle', function(req, res, next) {
   var my_corpus = new textminer.Corpus([]);
   user = "";
+  matchlist = {};
+  matchlistsize = 0;
   Profile.findOne({handle: req.params.handle})
   .populate("user")
   .then(profile1 => {
@@ -491,7 +493,7 @@ router.get('/match/:handle', function(req, res, next) {
     }
     base_user = profile1.handle.toString();
     my_corpus.addDoc(profile1.skills.toString());
-    res.json(profile1);
+    //res.json(profile1);
   })
   //.catch(err => res.status(404).json(err));
 
@@ -524,10 +526,10 @@ router.get('/match/:handle', function(req, res, next) {
       terms.fill_zeros();
 
       //print basic info about matrix
-      console.log(terms.vocabulary);
-      console.log(terms.data);
-      console.log(terms.nDocs);
-      console.log(terms.nTerms);
+      // console.log(terms.vocabulary);
+      // console.log(terms.data);
+      // console.log(terms.nDocs);
+      // console.log(terms.nTerms);
 
 
       var iter;
@@ -562,7 +564,10 @@ router.get('/match/:handle', function(req, res, next) {
              //set match for these 2
              match[iter] = true;
              //recommend user2 to user1
-             console.log("Matched", profiles[mov].handle.toString());
+             //console.log("Matched", profiles[iter].handle);
+             matchlist[matchlistsize] = profiles[iter];
+             matchlistsize++;
+             //console.log(profiles[iter].handle);
            }
            terms_doc1 = 0;
            // else{
@@ -581,7 +586,7 @@ router.get('/match/:handle', function(req, res, next) {
 
 
 
-      //res.json(profiles[7].skills); //shows naruto skils for now
+      res.json(matchlist); 
 
     })
     .catch(err => res.status(404).json({profile: "There are no profiles"}));
