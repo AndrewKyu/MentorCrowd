@@ -47,7 +47,8 @@ class ProfileItem extends Component {
             <Link to={`/profile/${profile.handle}`} className="btn btn-info m-1">
               View Profile
             </Link>
-            <Link to='/' className="btn btn-info m-1">Message</Link>
+            {/* <Link to='/' className="btn btn-info m-1">Message</Link> */}
+            <a href={`mailto:${profile.user.email}` } className="btn btn-info mr-1">Email</a>
             <button
                   onClick={this.onRateClick.bind(this, profile._id)}
                   type="button"

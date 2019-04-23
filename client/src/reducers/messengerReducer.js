@@ -1,10 +1,10 @@
 import { MESSAGE_LOADING, CONVERSATION_LOADING, GET_CONVERSATION, GET_CONVERSATIONS, REPLY_CONVERSATION, NEW_RECIPIENT } from '../actions/types';
 
 const initialState = {
-    conversation: null,
-    message: null,
-    conversations: null,
-    messages: null,
+    conversation: {},
+    message: {},
+    conversations: [],
+    messages: [],
     loading: false
 }
 
@@ -25,13 +25,13 @@ export default function(state = initialState, action){
                 ...state,
                 conversation: action.payload,
                 loading: false
-            };
+            }
         case GET_CONVERSATIONS:
             return {
                 ...state,
                 conversations: action.payload,
                 loading: false
-            };
+            }
         case REPLY_CONVERSATION:
             return{
                 ...state,

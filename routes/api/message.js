@@ -142,7 +142,7 @@ router.post(
         const newConversation = new Conversation({
             user: [req.user.id, req.params.recipient]
         });
-
+        console.log('are we at 145?');
         newConversation
             .save()
             .then((conversation) => {

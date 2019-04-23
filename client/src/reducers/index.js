@@ -3,14 +3,14 @@ import authReducer from './authReducer';
 import errorReducer from './errorReducer';
 import profileReducer from './profileReducer'
 import postReducer from './postReducer';
-import selfProfileReducer from './selfProfileReducer';
 import eventReducer from './eventReducer';
+import messengerReducer from './messengerReducer';
 
 export default combineReducers({
     auth: authReducer,
     errors: errorReducer,
     profile: profileReducer,
     post: postReducer,
-    self: selfProfileReducer,
-    event: eventReducer
+    event: eventReducer,
+    messenger: messengerReducer
 });

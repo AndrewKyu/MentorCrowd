@@ -321,7 +321,10 @@ LIGHT GRAY: #ECF0F2
   .certifiates {
       padding-bottom: 10px;
   }
-
+  .message{
+      height: 450px;
+      background-color: white;
+  }
   @media screen and (max-width: 1200px) {
     .loginPage {
         width: 90%;

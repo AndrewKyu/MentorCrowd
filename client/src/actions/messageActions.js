@@ -28,6 +28,25 @@ export const getConversations = () => dispatch => {
         )
 }
 
+//Get Conversation by ID
+export const getConversation = (id) => dispatch => {
+    dispatch(setConversationLoading());
+
+    axios
+        .get(`/api/message/${id}`)
+        .then(res => 
+            dispatch({
+                type: GET_CONVERSATION,
+                payload: res.data
+            })
+        )
+        .catch(err => 
+            dispatch({
+                type: GET_CONVERSATION,
+                payload: null
+            })
+        );
+}
 //Set Message Loading State
 export const setMessageLoading = () => {
     return{
