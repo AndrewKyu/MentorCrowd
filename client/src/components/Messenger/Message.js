@@ -2,28 +2,30 @@ import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client';
 
 class Message extends Component {
-    constructor(){
-        super();
-        this.state = {
-            endpoint: "localhost:5000"
-        }
-    }
+    // constructor(){
+    //     super();
+    //     this.state = {
+    //         endpoint: "localhost:5000"
+    //     }
+    //     this.send = this.send.bind(this);
+    // }
 
-    send = () =>{
-        const socket = socketIOClient(this.state.endpoint);
-    }
+    // send = () =>{
+    //     const socket = socketIOClient(this.state.endpoint);
+    //     socket.emit('example_message', 'demo');
+    // }
 
-    sendMsg = () => {
+    // sendMsg = () => {
 
-    }
+    // }
 
-    getMsg = () => {
+    // getMsg = () => {
 
-    }
-
-    componentDidMount(){
-        const socket = socketIOClient(this.state.endpoint);
-    }
+    // }
+    
+    // componentDidMount(){
+    //     const socket = socketIOClient(this.state.endpoint);
+    // }
   render() {
     return (
       <div className="message">

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { ListGroup } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import socketIOClient from 'socket.io-client';
+import openSocket from 'socket.io-client';
+
 import ConversationList from './ConversationList';
 import Message from './Message';
 import MessageList from './MessageList';
@@ -11,6 +14,8 @@ import TextFieldGroup from '../common/TextFieldGroup';
 
 import { getConversations } from '../../actions/messageActions';
 
+const socket = openSocket('http://localhost:5000');
+
 class Messenger extends Component {
   constructor(props){
     super(props);
@@ -18,13 +23,21 @@ class Messenger extends Component {
       message:''
     }
     this.onChange = this.onChange.bind(this);
+    this.send = this.send.bind(this);
   }
+
   componentDidMount(){
     this.props.getConversations();
   }
+
   onChange(e){
     this.setState({[e.target.name]: e.target.value});
   }
+
+  send = () =>{
+    socket.emit('example_message', 'demo');
+  }
+
   render() {
     const { conversations, loading } = this.props.messenger;
     let conversationContent;
@@ -47,18 +60,10 @@ class Messenger extends Component {
             <Message />
             <form>
               <input placeholder="Type a message..." className="form-control form-control-md"/>
-              {/* <button className="btn btn-primary btn-sm">Send</button> */}
+              <button className="btn btn-primary btn-sm" onClick={this.send} type="button">Send</button>
             </form>
           </div>
         </div>
-        
-        {/* <div className="scrollable sidebar">
-            <ConversationList/>
-        </div>
-
-        <div className="scrollable content">
-            <MessageList />
-        </div> */}
       </div>
     )
   }

@@ -12,7 +12,7 @@ const events = require('./routes/api/event');
 
 const app = express();
 const http = require('http').Server(app);
-// const io = require('socket.io')(http);
+const io = require('socket.io')(http);
 cloudinaryConfig(app);
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -67,6 +67,17 @@ if (process.env.NODE_ENV === 'production') {
 //       io.emit('chat message', msg);
 //   });
 // });
+
+io.on('connection', function(socket){
+  console.log('a user is connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+
+  socket.on('example_message', function(msg){
+    console.log('message: ' + msg);
+  });
+})
 
 const port = process.env.PORT || 5000;
 
