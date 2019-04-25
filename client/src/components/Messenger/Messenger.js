@@ -6,8 +6,6 @@ import socketIOClient from 'socket.io-client';
 import openSocket from 'socket.io-client';
 
 import ConversationList from './ConversationList';
-import Message from './Message';
-import MessageList from './MessageList';
 
 import Spinner from '../common/Spinner';
 import TextFieldGroup from '../common/TextFieldGroup';
@@ -45,25 +43,26 @@ class Messenger extends Component {
     if(conversations === null || loading){
       conversationContent = <Spinner />
     }else{
-      conversationContent = <ConversationList conversations={conversations}/>
+      conversationContent = <ConversationList conversations={conversations} send={this.send}/>
     }
     return (
       <div className="messengers">
         <h1>
           MESSENGER
         </h1>
-        <div className="row">
-          <div className="col-md-4 mt-3" style={{backgroundColor:'white'}}>
-              {conversationContent}
-          </div>
-          <div className="col-md-8">
-            <Message />
+        {/* <div className="row"> */}
+          {/* <div className="col-md-4 mt-3" style={{backgroundColor:'white'}}> */}
+              {/* {conversationContent} */}
+          {/* </div> */}
+          {conversationContent}
+          {/* <div className="col-md-8">
+            <Message conversations={conversations}/>
             <form>
               <input placeholder="Type a message..." className="form-control form-control-md"/>
               <button className="btn btn-primary btn-sm" onClick={this.send} type="button">Send</button>
             </form>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </div>
     )
   }

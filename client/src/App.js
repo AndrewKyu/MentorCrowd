@@ -28,7 +28,7 @@ import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
 
 import Messenger from './components/Messenger/Messenger';
-import Message from './components/Messenger/Message';
+import Chat from './components/Messenger/Chat';
 import Events from './components/events/Events';
 import EditEvent from './components/events/EditEvent';
 
@@ -96,7 +96,7 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/messenger" component={ Messenger } />
-                <PrivateRoute exact path="/messenger/:id" component={ Message } />
+                <PrivateRoute exact path="/messenger/:id" component={ Chat } />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/events" component={ Events } />

@@ -6,7 +6,8 @@ import {
     REPLY_CONVERSATION,
     NEW_RECIPIENT,
     MESSAGE_LOADING,
-    CONVERSATION_LOADING
+    CONVERSATION_LOADING,
+    GET_ERRORS
 } from './types';
 
 //Get Conversations
@@ -30,7 +31,7 @@ export const getConversations = () => dispatch => {
 
 //Get Conversation by ID
 export const getConversation = (id) => dispatch => {
-    dispatch(setConversationLoading());
+    // dispatch(setConversationLoading());
 
     axios
         .get(`/api/message/${id}`)
@@ -47,6 +48,29 @@ export const getConversation = (id) => dispatch => {
             })
         );
 }
+
+//Reply to conversation 
+export const replyMessage = (id, message, socket) => dispatch => {
+    axios
+        .post(`/api/message/${id}`, message)
+        .then(res => {
+            console.log(res);
+            dispatch({
+                type: REPLY_CONVERSATION,
+                payload: res.data
+            })
+            // socket();
+            
+        })
+        .catch(err => {
+            console.log(err);
+            dispatch({
+                type: GET_ERRORS, 
+                payload: null
+            })
+        })
+}
+
 //Set Message Loading State
 export const setMessageLoading = () => {
     return{

@@ -16,7 +16,8 @@ user:{
       ref: "users"
   },
 date: {
-      type: Date
+      type: Date,
+      default: Date.now
   }
 });
 

@@ -9,6 +9,7 @@ const initialState = {
 }
 
 export default function(state = initialState, action){
+    // console.log(action.payload);
     switch(action.type){
         case CONVERSATION_LOADING:
             return {
@@ -35,12 +36,12 @@ export default function(state = initialState, action){
         case REPLY_CONVERSATION:
             return{
                 ...state,
-                messages: [action.payload, ...state.messages]
+                conversations: action.payload
             }
         case NEW_RECIPIENT:
             return{
                 ...state,
-                conversatios: [action.payload, ...state.conversations]
+                conversations: [action.payload, ...state.conversations]
             }
         default: return state;
     }

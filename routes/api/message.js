@@ -57,6 +57,7 @@ router.get(
 
     Conversation.find()
             .populate("user")
+            .populate("message")
             .then(conversations => {
                 if(!conversations){
                     errors.noconversations = "There are no conversations";
@@ -103,6 +104,35 @@ router.post(
     '/:conversation_id', 
     passport.authenticate('jwt', { session: false }),
     (req,res) => {
+
+        // Conversation.findOne({ _id: req.params.conversation_id }).then(conversation => {
+        //     if(!conversation){
+        //         errors.noconversation = "That conversation does not exist";
+        //         res.status(404);
+        //     }
+        //     // console.log(req.params.conversation_id)
+        //     const msgResponse = new Message({
+        //         conversationId: req.params.conversation_id,
+        //         message: req.body.message,
+        //         user: req.user.id,
+        //         date: req.body.date
+        //     });
+            
+        //     conversation
+        //         .save()
+        //         .then(convo => {
+        //             msgResponse
+        //                 .save()
+        //                 .then(message => {
+        //                     console.log("we made it in here?");
+        //                     res.json(message)
+        //                 })
+        //                 .catch(err => res.status(500).json({ error: err }))
+        //                 // console.log('are we going here3?');
+        //         })
+        //         .catch(err => res.status(404).json({ convonotfound: 'No conversation found'}));
+        // })
+        // .catch(err => res.json(err));
         const msgResponse = new Message({
             conversationId: req.params.conversation_id,
             message: req.body.message,
@@ -128,6 +158,7 @@ router.post(
     '/new/:recipient', 
     passport.authenticate('jwt', { session: false }),
     (req, res, next) => {
+        
         const { conversationErrors, isConversationValid } = validateConversationInput(req.params.recipient);
         const { messageErrors, isMessageValid } = validateMessageInput(req.body);
 
@@ -142,7 +173,7 @@ router.post(
         const newConversation = new Conversation({
             user: [req.user.id, req.params.recipient]
         });
-        console.log('are we at 145?');
+
         newConversation
             .save()
             .then((conversation) => {
@@ -159,6 +190,43 @@ router.post(
                     .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
+        // const { conversationErrors, isConversationValid } = validateConversationInput(req.params.recipient);
+        // const { messageErrors, isMessageValid } = validateMessageInput(req.body);
+
+        // if(!isConversationValid){
+        //     return res.status(400).json(conversationErrors);
+        // }
+
+        // if(!isMessageValid){
+        //     return res.status(400).json(messageErrors);
+        // }
+        
+        // const newConversation = new Conversation({
+        //     user: [req.user.id, req.params.recipient],
+        //     message: []
+        // });
+        
+        // newConversation
+        //     .save()
+        //     .then((conversation) => {
+        //         const newMessage = new Message({
+        //             conversationId: conversation._id,
+        //             message: req.body.message,
+        //             user: req.user.id,
+        //             date: req.body.date
+        //         });
+        //         newConversation.message.push(newMessage);
+        //         newConversation.save().then(conversation => {
+        //             // console.log(newConversation);
+        //             newMessage
+        //                 .save()
+        //                 .then(message => res.json(message))
+        //                 .catch(err => console.log(err));
+        //         })
+        //         .catch(err => console.log(err));
+                
+        //     })
+        //     .catch(err => console.log(err));
 });
 
 module.exports = router;
