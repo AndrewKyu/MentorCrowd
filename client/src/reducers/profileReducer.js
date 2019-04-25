@@ -1,9 +1,9 @@
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES } from '../actions/types';
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_PROFILES, GET_MATCHES } from '../actions/types';
 
 const initialState = {
     profile: null,
     profiles: null,
-    self: null,
+    matched: null,
     loading: false
 }
 
@@ -26,6 +26,12 @@ export default function(state = initialState, action){
                 profiles: action.payload,
                 loading: false
             };
+        case GET_MATCHES:
+            return {
+                ...state,
+                matched: action.payload,
+                loading: false
+            }
         case CLEAR_CURRENT_PROFILE:
             return {
                 ...state,

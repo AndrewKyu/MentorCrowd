@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const textminer = require('text-miner');
 
 const Datauri = require('datauri');
 const path = require('path');
@@ -468,6 +469,116 @@ router.delete(
         res.json({ success: true })
       );
     });
+  }
+);
+
+/*
+-----------------------------------------------------------|
+|    @route                                                |
+|    @description   Match user profiles                    | 
+|    @access        Public                                 |
+-----------------------------------------------------------|
+*/
+router.get('/match/:user_id', function(req, res, next) {
+  var my_corpus = new textminer.Corpus([]);
+  user = "";
+  matchlist = {};
+  matchlistsize = 0;
+  
+  Profile.findOne({user: req.params.user_id})
+  .populate("user")
+  .then(profile1 => {
+    if(!profile1){
+      errors.noprofile = "There's no profile for this user";
+      res.status(404);
+    }
+    base_user = profile1.handle.toString();
+    my_corpus.addDoc(profile1.skills.toString());
+    //res.json(profile1);
+    Profile.find()
+    .populate("user")
+    .then(profiles => {
+      if(!profiles){
+        errors.noprofile = "There are no profiles";
+        res.status(404).json(errors);
+      }
+      
+      for(mov = 0; mov <profiles.length; mov++){
+       //console.log(profiles[mov].skills);
+      
+       //adds all Users skills to the corpus
+       if(base_user != profiles[mov].handle.toString()){
+        my_corpus.addDoc(profiles[mov].skills.toString());
+       }
+       
+      }
+
+      my_corpus.toUpper();
+      my_corpus.removeInvalidCharacters();
+      my_corpus.removeInterpunctuation();
+      my_corpus.clean();
+
+      //creating the termdoc matrix
+      var terms = new textminer.DocumentTermMatrix(my_corpus);
+      terms.fill_zeros();
+
+      //print basic info about matrix
+      // console.log(terms.vocabulary);
+      // console.log(terms.data);
+      // console.log(terms.nDocs);
+      // console.log(terms.nTerms);
+
+
+      var iter;
+      var iter2;
+      var iter3;
+      var iMax = terms.nDocs;
+      var jMax = terms.nDocs;
+      var counter = new Array();
+      var match = new Array();
+      var terms_doc1 = 0;
+      for(mover = 0; mover < terms.nDocs;mover++){
+        match[mover] = 0;
+        counter[mover] = 0;
+      }
+      
+
+       
+        //iterates through potential users
+        for(iter = 1; iter < terms.nDocs; iter++){
+          
+         //iterates through terms
+           for(iter2 = 0; iter2 < terms.nTerms; iter2++){
+            
+            if(terms.data[0][iter2] >= 1){
+             terms_doc1 +=1;
+             if(terms.data[iter][iter2] >= 1){
+              counter[iter] += 1;
+             }
+            }            
+           }
+           if(counter[iter] >= terms_doc1 / 4){   //user2 has 1/4 of user1's keywords
+             //set match for these 2
+             match[iter] = true;
+             //recommend user2 to user1
+             //console.log("Matched", profiles[iter].handle);
+             matchlist[matchlistsize] = profiles[iter];
+             matchlistsize++;
+             //console.log(profiles[iter].handle);
+           }
+           terms_doc1 = 0;
+           // else{
+           //   //remove match for these 2, no need since default is false
+
+           // }
+         }
+      res.json(matchlist); 
+
+    })
+    .catch(err => res.status(404).json({profile: "There are no profiles"}));
+
+  })
+  //.catch(err => res.status(404).json(err));
   }
 );
 module.exports = router;
