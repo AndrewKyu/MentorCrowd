@@ -31,6 +31,7 @@ import Messenger from './components/Messenger/Messenger';
 import Chat from './components/Messenger/Chat';
 import Events from './components/events/Events';
 import EditEvent from './components/events/EditEvent';
+import Matches from './components/match/Matches';
 
 
 
@@ -103,6 +104,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/edit-event/:id" component={ EditEvent } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/matches/:id" component={ Matches } />
               </Switch>
             </div>
           </div>

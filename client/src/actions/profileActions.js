@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER, GET_PROFILES, GET_SELF } from './types';
+import { GET_PROFILE, 
+        PROFILE_LOADING, 
+        CLEAR_CURRENT_PROFILE, 
+        GET_ERRORS, 
+        SET_CURRENT_USER, 
+        GET_PROFILES, 
+        GET_MATCHES } from './types';
 
 //Get current profile
 export const getCurrentProfile = () => dispatch => {
@@ -52,7 +58,7 @@ export const getProfileByUserId = userID => dispatch => {
     )
     .catch(err =>
       dispatch({
-        type: GET_SELF,
+        type: GET_PROFILE,
         payload: null
       })
     );
@@ -115,6 +121,25 @@ export const getProfiles = () => dispatch => {
         })
       );
   };
+
+//Get matched
+export const getMatchedProfiles = (id) => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile//match/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_MATCHES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_MATCHES,
+        payload: null
+      })
+    );
+};
 
 // Delete Experience
 export const deleteExperience = (id) => dispatch => {
