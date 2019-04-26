@@ -75,6 +75,9 @@ const ProfileSchema = new Schema({
             courses:{
                     type: [String]
             },
+            description:{
+                type: String
+            }
         }
     ],
     experience: [

@@ -10,7 +10,7 @@ class ProfileHeader extends Component {
         <div className="col-md-12">
           <div className="card card-body bg-info text-white mb-3 mt-4">
             <div className="row">
-              <div className="col-4 col-md-3 m-auto">
+              <div className="m-auto">
                 <img
                   className="rounded-circle"
                   src={(profile.user.image) ? profile.user.image : 'https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg'}
@@ -93,6 +93,9 @@ class ProfileHeader extends Component {
                     <i className="fab fa-youtube fa-2x" />
                   </a>
                 )}
+              </p>
+              <p className="text-white">
+                  <strong>Up Votes: {profile.mentorpoints.length}</strong>
               </p>
             </div>
           </div>

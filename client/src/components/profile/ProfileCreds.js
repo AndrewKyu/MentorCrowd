@@ -4,7 +4,7 @@ import Moment from "react-moment";
 class ProfileCreds extends Component {
   render() {
     const { experience, education } = this.props;
-
+    console.log(education);
     const expItems = experience.map(exp => (
       <li key={exp._id} className="list-group-item">
         <h4>{exp.company}</h4>
@@ -54,6 +54,22 @@ class ProfileCreds extends Component {
         </p>
         <p>
           <strong>Major:</strong> {edu.major}
+        </p>
+        <p>
+          {edu.gpa === "" ? null : (
+            <span>
+              <strong>GPA: </strong>
+              {edu.gpa}
+            </span>
+          )}
+        </p>
+        <p>
+          {edu.courses.length === 0 ? null : (
+            <span>
+              <strong>Courses Taken: </strong>
+              {edu.courses}
+            </span>
+          ) }
         </p>
         <p>
           {edu.description === "" ? null : (
