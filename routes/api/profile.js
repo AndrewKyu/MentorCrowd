@@ -484,6 +484,7 @@ router.get('/match/:user_id', function(req, res, next) {
   user = "";
   matchlist = {};
   matchlistsize = 0;
+  profileskipper = 0;
   
   Profile.findOne({user: req.params.user_id})
   .populate("user")
@@ -493,6 +494,7 @@ router.get('/match/:user_id', function(req, res, next) {
       res.status(404);
     }
     base_user = profile1.handle.toString();
+    //console.log("Added", profile1.handle);
     my_corpus.addDoc(profile1.skills.toString());
     //res.json(profile1);
     Profile.find()
@@ -508,7 +510,11 @@ router.get('/match/:user_id', function(req, res, next) {
       
        //adds all Users skills to the corpus
        if(base_user != profiles[mov].handle.toString()){
+        //console.log("Added", profiles[mov].handle);
         my_corpus.addDoc(profiles[mov].skills.toString());
+       }
+       else{
+         profileskipper = mov;
        }
        
       }
@@ -559,12 +565,24 @@ router.get('/match/:user_id', function(req, res, next) {
            }
            if(counter[iter] >= terms_doc1 / 4){   //user2 has 1/4 of user1's keywords
              //set match for these 2
-             match[iter] = true;
-             //recommend user2 to user1
-             //console.log("Matched", profiles[iter].handle);
-             matchlist[matchlistsize] = profiles[iter];
-             matchlistsize++;
-             //console.log(profiles[iter].handle);
+             
+              if(iter <= profileskipper) {
+              match[iter] = true;
+              //recommend user2 to user1
+              //console.log("Matched", profiles[iter-1].handle, iter-1);
+              matchlist[matchlistsize] = profiles[iter-1];
+              matchlistsize++;
+              //console.log(profiles[iter].handle);
+              }
+              else if(iter > profileskipper){
+                match[iter] = true;
+                //recommend user2 to user1
+               // console.log("Matched", profiles[iter].handle, iter);
+                matchlist[matchlistsize] = profiles[iter];
+                matchlistsize++;
+                //console.log(profiles[iter].handle);
+              }
+
            }
            terms_doc1 = 0;
            // else{
