@@ -384,7 +384,7 @@ router.post(
 router.post('/message', 
             passport.authenticate("jwt", { session: false }), 
             (req, res) => {
-  console.log(req.body)
+  console.log(req.user);
 
   const message = {
     name: req.body.name,
@@ -393,7 +393,7 @@ router.post('/message',
     from: req.body.from,
     message: req.body.message
   }
-  
+
   const output = `
     <p>You have a new contact request</p>
     <h3>Contact Details</h3>
@@ -423,7 +423,8 @@ router.post('/message',
     to: message.to, 
     subject: message.subject,
     text: "Hello world?",
-    html: output
+    html: output,
+    replyTo: req.user.email
   }
 
   transporter.sendMail(mailOptions, (error, info) => {
