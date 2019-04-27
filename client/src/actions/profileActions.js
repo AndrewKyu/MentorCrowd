@@ -6,7 +6,8 @@ import { GET_PROFILE,
         GET_ERRORS, 
         SET_CURRENT_USER, 
         GET_PROFILES, 
-        GET_MATCHES } from './types';
+        GET_MATCHES, 
+        SEND_MESSAGE} from './types';
 
 //Get current profile
 export const getCurrentProfile = () => dispatch => {
@@ -139,6 +140,21 @@ export const getMatchedProfiles = (id) => dispatch => {
         payload: null
       })
     );
+};
+
+//Send message on profile
+export const sendMessageToProfile = (messageData) => dispatch => {
+  axios
+    .post("/api/profile/message", messageData)
+    .then(res => {
+      console.log("res:", res);
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
 };
 
 // Delete Experience

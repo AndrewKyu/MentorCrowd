@@ -8,6 +8,7 @@ export const PROFILE_NOT_FOUND = 'PROFILE_NOT_FOUND';
 export const CLEAR_CURRENT_PROFILE = 'CLEAR_CURRENT_PROFILE';
 export const GET_PROFILES = "GET_PROFILES";
 export const GET_MATCHES = "GET_MATCHES";
+export const SEND_MESSAGE = "SEND_MESSAGE";
 
 export const POST_LOADING = "POST_LOADING";
 export const GET_POSTS = "GET_POSTS";

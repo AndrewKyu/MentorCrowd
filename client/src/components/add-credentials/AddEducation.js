@@ -44,7 +44,7 @@ class AddEducation extends Component {
             current: this.state.current,
             gpa: this.state.gpa,
             courses: this.state.courses,
-            descrption: this.state.description
+            description: this.state.description
         }
 
         this.props.addEducation(eduData, this.props.history);
