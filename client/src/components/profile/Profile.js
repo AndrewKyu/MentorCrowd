@@ -6,6 +6,7 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileAbout from "./ProfileAbout";
 import ProfileCreds from "./ProfileCreds";
 import ProfileGithub from "./ProfileGithub";
+import ProfileContact from './ProfileContact';
 import Spinner from "../common/Spinner";
 import { getProfileByHandle } from "../../actions/profileActions";
 
@@ -57,7 +58,9 @@ class Profile extends Component {
           />
           {/* <ProfileGithub username={profile.githubusername}/> */}
           {GitHubInfo}
-
+          <br />
+          <h1>Want to contact {profile.user.name}?</h1>
+          <ProfileContact profile={profile}/>
         </div>
       );
     }

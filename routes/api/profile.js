@@ -3,14 +3,20 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 const textminer = require('text-miner');
+const nodemailer = require('nodemailer');
 
 const Datauri = require('datauri');
 const path = require('path');
 const { uploader } = require('../../config/cloudinaryConfig');
+
 const cloudinary = require('cloudinary');
 const multer = require('multer');
 
 const storage = multer.memoryStorage();
+
+const password = require('../../config/credential').password;
+// const fromEmail = require('../../config/credential').fromEmail;
+const toEmail = require('../../config/credential').toEmail;
 
 const fileFilter = (req, file, cb) => {
   //Reject a file 
@@ -367,6 +373,72 @@ router.post(
     .catch(err => res.status(404).json({ profilenotfound: "No profile found" }));
   }
 )
+
+/*
+------------------------------------------------|
+|    @route         POST api/profile/message    |
+|    @description   Email the user of profile   | 
+|    @access        Private                     |
+------------------------------------------------|
+*/
+router.post('/message', 
+            passport.authenticate("jwt", { session: false }), 
+            (req, res) => {
+  console.log(req.body)
+
+  const message = {
+    name: req.body.name,
+    subject: req.body.subject,
+    to: req.body.to,
+    from: req.body.from,
+    message: req.body.message
+  }
+
+  const output = `
+    <p>You have a new contact request</p>
+    <h3>Contact Details</h3>
+    <ul>
+      <li>Name: ${message.name}</li>
+      <li>Email: ${message.from}</li>
+    </ul>
+    <h3>Message</h3>
+    <p>${message.message}</p>
+  `;
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "mentorcrowdmailer@gmail.com",
+      pass: password
+    },
+    tls:{
+      rejectedUnauthorized: false
+    }
+  });
+
+  let mailOptions  = {
+    from: '"MentorCrowd Contact" <mentorcrowdmailer@gmail.com>',
+    to: message.to, 
+    subject: message.subject,
+    text: "Hello world?",
+    html: output
+  }
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if(error){
+      console.log(error);
+    }
+    // console.log(info);
+    console.log("Message sent: %s", info.messageId);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+    // alert("Message sent!");
+  });
+  res.json(message);
+});
+
 /*
 ------------------------------------------------|
 |    @route         POST api/profile/awards     |

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import isEmpty from "../../validation/is-empty";
+import { Link } from 'react-router-dom'
 //a ref file
 class ProfileHeader extends Component {
   render() {
@@ -19,14 +20,14 @@ class ProfileHeader extends Component {
               </div>
             </div>
             <div className="text-center">
-              <h1 className="display-4 text-center">{profile.user.name}</h1>
-              <p className="lead text-center">
+              <h1 className="display-4 text-center text-white">{profile.user.name}</h1>
+              <p className="lead text-center text-white">
                 {profile.status}{" "}
                 {isEmpty(profile.company) ? null : (
                   <span>at {profile.company}</span>
                 )}
               </p>
-              {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
+              {isEmpty(profile.location) ? null : <p className="text-white">{profile.location}</p>}
               <p>
                 {isEmpty(profile.website) ? null : (
                   <a
@@ -96,6 +97,9 @@ class ProfileHeader extends Component {
               </p>
               <p className="text-white">
                   <strong>Up Votes: {profile.mentorpoints.length}</strong>
+              </p>
+              <p className="text-white">
+                  <Link to={`/contact/${profile.handle}`} className="text-white">Want to get in touch with {profile.user.name}?</Link>
               </p>
             </div>
           </div>
