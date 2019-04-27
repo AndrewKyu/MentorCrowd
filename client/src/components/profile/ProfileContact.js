@@ -16,6 +16,7 @@ class ProfileContact extends Component {
             to: this.props.profile.profile.user.email,
             subject: '',
             message: '',
+            sent: false,
             errors: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -26,6 +27,7 @@ class ProfileContact extends Component {
     }
     onSubmit(e){
         e.preventDefault();
+        
         const messageData = {
             name: this.state.name,
             from: this.state.from,
@@ -34,7 +36,14 @@ class ProfileContact extends Component {
             subject: this.state.subject,
             message: this.state.message
         }
+        
         this.props.sendMessageToProfile(messageData);
+        this.setState({
+            from: '',
+            subject: '',
+            message: '',
+            sent: true
+        })
     }
   render() {
     return (
@@ -62,6 +71,7 @@ class ProfileContact extends Component {
             />
             <input type="submit" value="Submit" className="btn btn-info btn-block mt-4"/>
         </form>
+        {(this.state.sent === false) ? null : <p className="text-center mt-4">Message sent</p>}
       </div>
     )
   }

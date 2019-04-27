@@ -384,7 +384,7 @@ router.post(
 router.post('/message', 
             passport.authenticate("jwt", { session: false }), 
             (req, res) => {
-  console.log(req.body)
+  console.log(req.user);
 
   const message = {
     name: req.body.name,
@@ -402,7 +402,7 @@ router.post('/message',
       <li>Email: ${message.from}</li>
     </ul>
     <h3>Message</h3>
-    <p>${message.message}</p>
+    <p style="white-space: pre-wrap">${message.message}</p>
   `;
 
   let transporter = nodemailer.createTransport({
@@ -423,7 +423,8 @@ router.post('/message',
     to: message.to, 
     subject: message.subject,
     text: "Hello world?",
-    html: output
+    html: output,
+    replyTo: req.user.email
   }
 
   transporter.sendMail(mailOptions, (error, info) => {
