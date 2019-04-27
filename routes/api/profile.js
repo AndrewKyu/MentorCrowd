@@ -393,7 +393,7 @@ router.post('/message',
     from: req.body.from,
     message: req.body.message
   }
-
+  
   const output = `
     <p>You have a new contact request</p>
     <h3>Contact Details</h3>
@@ -402,7 +402,7 @@ router.post('/message',
       <li>Email: ${message.from}</li>
     </ul>
     <h3>Message</h3>
-    <p>${message.message}</p>
+    <p style="white-space: pre-wrap">${message.message}</p>
   `;
 
   let transporter = nodemailer.createTransport({
