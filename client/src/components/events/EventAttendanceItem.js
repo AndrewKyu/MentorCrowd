@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 class EventAttendanceItem extends Component {
   render() {
-      const { attendee, eventId, auth } = this.props;
+      const { attendee } = this.props;
     return (
       <div className="card card-body mb-3">
         <div className="row">
@@ -14,6 +14,7 @@ class EventAttendanceItem extends Component {
                     className="rounded-circle d-none d-md-block"
                     src={attendee.image ? attendee.image : 'https://www.coburgbanks.co.uk/wp-content/uploads/2015/08/linkedin-no-profile-picture-300x333.jpg'}
                     style={{width: '150px', height: '150px'}}
+                    alt=""
                  />
             </div>
             <div className="col-md-7">
