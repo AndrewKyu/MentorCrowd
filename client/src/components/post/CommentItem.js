@@ -10,12 +10,13 @@ class CommentItem extends Component {
   }
   render() {
     const { comment, postId, auth } = this.props;
+    console.log(comment.user._id);
     
     return (
         <div className="card card-body mb-3">
             <div className="row">
                 <div className="col-md-5">
-                    <Link to={`/profile/user/${auth.user.id}`}>
+                    <Link to={`/profile/user/${comment.user._id}`}>
                         <img className="rounded-circle d-none d-md-block" src={comment.user.image} alt=""  style={{margin: 'auto' , width: '200px', height: '200px'}}/>
                     </Link>
                     <br />
