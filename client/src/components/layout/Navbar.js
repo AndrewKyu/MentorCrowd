@@ -28,11 +28,11 @@ class Navbar extends Component {
           </li>
           <li className="nav-item">
             <Link className="nav-link" to={`/matches/${user.id}`}>
-              Recommended Users
+              Recommended
             </Link>
           </li>
           <li className="nav-item">
-              <Link className="nav-link" to="/events">Company Events</Link>
+              <Link className="nav-link" to="/events">Events</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to='/dashboard'>
@@ -71,7 +71,7 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm sticky-top">
+      <nav className="navbar navbar-expand-md sticky-top">
           <Link className="navbar-brand" to="/feed">
             <img src={logo} alt="logo" className="mc-logo"/>
           </Link>

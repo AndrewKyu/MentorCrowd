@@ -45,20 +45,20 @@ class PostForm extends Component {
         <div className="post-form mb-3 mt-4">
             <div className="card card-info">
                 <div className="card-header bg-info text-white">
-                    Say Somthing...
+                    Create Post
                 </div>
                 <div className="card-body">
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <TextAreaFieldGroup 
-                                placeholder="Create a post"
+                                placeholder="What's on your mind?"
                                 name="text"
                                 value={this.state.text}
                                 onChange={this.onChange}
                                 error={errors.text}
                             />
                         </div>
-                        <button type="submit" className="btn btn-dark">Submit</button>
+                        <button type="submit">Share</button>
                     </form>
                 </div>
             </div>

@@ -28,12 +28,12 @@ class Matches extends Component {
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                    <h1 className="display-4 text-center">
-                        Matched Profiles
+                    <h1>
+                        Recommended Developers
                     </h1>
-                    <div className="p lead text-center">
-                        Browser and connect with matched develoeprs
-                    </div>
+                    <p>
+                        Browse and connect with recommended develoeprs
+                    </p>
                     {matchedItems}
                 </div>
             </div>

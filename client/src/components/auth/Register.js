@@ -90,7 +90,7 @@ class Register extends Component{
                         </form>
                     </div>
                 </div>
-                <p className="terms">By signing up you agree to our <Link to="/">Terms & Conditions</Link></p>
+                <p className="terms">By signing up you agree to our Terms & Conditions</p>
             </div>
         );  
     }
