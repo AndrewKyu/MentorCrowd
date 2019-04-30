@@ -6,8 +6,8 @@ import { GET_PROFILE,
         GET_ERRORS, 
         SET_CURRENT_USER, 
         GET_PROFILES, 
-        GET_MATCHES, 
-        SEND_MESSAGE} from './types';
+        GET_MATCHES 
+      } from './types';
 
 //Get current profile
 export const getCurrentProfile = () => dispatch => {
