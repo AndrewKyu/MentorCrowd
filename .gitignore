@@ -2,5 +2,4 @@
 /uploads
 package-lock.json
 /config/keys_dev.js
-/config/credentials_dev.js
 .DS_Store
