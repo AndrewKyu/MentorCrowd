@@ -12,7 +12,7 @@ const events = require('./routes/api/event');
 
 const app = express();
 const http = require('http').Server(app);
-// const io = require('socket.io')(http);
+const io = require('socket.io')(http);
 cloudinaryConfig(app);
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -40,16 +40,6 @@ app.use("/api/posts", posts);
 app.use('/api/message', messages);
 app.use('/api/events', events);
 
-// // Server static assets if in production
-// if(process.env.NODE_ENV === 'production'){
-//   //Set static folder
-//   app.use(express.static('mentorcrowdreact/build'));
-
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'mentorcrowdreact', 'build', 'index.html'));
-//   });
-// }
-
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
@@ -67,6 +57,7 @@ if (process.env.NODE_ENV === 'production') {
 //       io.emit('chat message', msg);
 //   });
 // });
+require('./sockets/friendSocket')(io);
 
 const port = process.env.PORT || 5000;
 

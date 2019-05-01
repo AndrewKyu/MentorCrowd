@@ -1,6 +1,7 @@
 //Importing Express
 const express = require('express');
 const router = express.Router();
+const async = require('async');
 
 //Encryptions
 const bcrypt = require('bcryptjs');
@@ -123,7 +124,104 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.post('/connect', (req, res) => {
+router.get('/connection', 
+            passport.authenticate('jwt', { session: false }), 
+            (req, res) => {
+    var sent = [];
+    var connections = [];
+    var received = [];
+    connectionObj = {};
+
+    sent = req.user.sentRequest;
+    connections = req.user.connectionList;
+    received = req.user.request;
     
+    User.findOne({ _id: req.user._id })
+        .populate("user.sentRequest")
+        .then(user => {
+            if(!user){
+                errors.nouser = "There is no user with this id";
+                return res.status(404).json(errors);
+            }
+            
+            connectionObj.sent = sent;
+            connectionObj.connections = connections;
+            connectionObj.received = received;
+            
+            res.json(user);
+        })
+        .catch(err => res.status(404).json(err));
+
+    res.status(400);
+});
+
+router.post('/connection/:user_id', 
+            passport.authenticate("jwt", { session: false }), 
+            (req, res) => {
+    
+    console.log(req.params);
+    
+    //Finding requestee by ID
+    User.findOne({ _id: req.params.user_id })
+        .then(receiver => {
+            if(receiver){
+
+                User.findOneAndUpdate(
+                    { _id: req.params.user_id },
+                    { $push: {request: {user: req.user._id}}},
+                    // {new: true}
+                ).then(receiver => {
+                    User.findOne({ _id: req.user._id }).then(user => {
+                        if(user){
+                            User.findOneAndUpdate(
+                                { _id: req.user._id },
+                                { $push: { sentRequest: {user: req.params.user_id} }},
+                                // {new: true}
+                            ).then(user => {
+                                res.json(user);
+                            })
+                        }
+                    })
+                });
+            }
+        })
+});
+
+router.post('/connection/accept/:requester_id', 
+            passport.authenticate("jwt", { session: false }), 
+            (req, res) => {
+    
+    // var result = {};
+    //Finding requestee by ID
+    User.findOne({ _id: req.user._id })
+        .then(user => {
+            if(user){
+
+                User.findOneAndUpdate(
+                    { _id: req.params.requester_id },
+                    { 
+                        $push: { connectionList: {connectionId: req.user._id} },
+                        $pull: { sentRequest: {user: req.user._id} }
+                    }
+                ).then(requester => {
+                    console.log(requester);
+                    User.findOne({ _id: req.user._id }).then(user => {
+                        if(user){
+
+                            User.findOneAndUpdate(
+                                { _id: req.user._id },
+                                { 
+                                    $push: { connectionList: {connectionId: req.params.requester_id} },
+                                    $pull: { request: {user: req.params.requester_id}}
+                                }
+                            ).then(user => {
+                                console.log(user)
+                                res.json(user);
+                            })
+                        }
+                    })
+                });
+            }
+        })
 });
 module.exports = router;

@@ -21,6 +21,28 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  sentRequest: [{
+    user: {
+      type: Schema.Types.ObjectId,
+      ref:"users"
+    }
+  }],
+  request: [{
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "users"
+    }
+  }],
+  connectionList: [{
+    connectionId: {
+      type: Schema.Types.ObjectId,
+      ref: "users"
+    }
+  }],
+  totalRequest:{
+    type: Number,
+    default: 0
   }
 });
 
