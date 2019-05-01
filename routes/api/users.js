@@ -137,7 +137,7 @@ router.get('/connection',
     received = req.user.request;
     
     User.findOne({ _id: req.user._id })
-        .populate("user.sentRequest")
+        .populate("connectionList.connectionId")
         .then(user => {
             if(!user){
                 errors.nouser = "There is no user with this id";
