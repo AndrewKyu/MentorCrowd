@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { clearCurrentProfile } from '../../actions/profileActions';
 import logo from '../../img/logo-white.png';
+import classnames from 'classnames';
 
 class Navbar extends Component {
   onLogoutClick(e){
@@ -15,7 +16,12 @@ class Navbar extends Component {
   
   render() {
     const { isAuthenticated, user } = this.props.auth;
-    
+    const { profile } = this.props.profile;
+
+    // if(profile === null || Object.keys(profile).length === 0){
+    //   console.log("no profile");
+    // }
+    // console.log(profile);
     const authLinks =(
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
@@ -24,15 +30,18 @@ class Navbar extends Component {
             </Link>
           </li>
           <li className="nav-item">
-              <Link className="nav-link" to="/profiles">Developers</Link>
+              {/* <Link className="nav-link" to="/profiles">Developers</Link> */}
+              <Link className={classnames('nav-link', {'d-none' : (profile === null || Object.keys(profile).length === 0)})} to="/profiles">Developers</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to={`/matches/${user.id}`}>
+            {/* <Link className="nav-link" to={`/matches/${user.id}`}>
               Recommended Users
-            </Link>
+            </Link> */}
+            <Link className={classnames('nav-link', {'d-none' : (profile === null || Object.keys(profile).length === 0)})} to={`/matches/${user.id}`}>Recommended Users</Link>
           </li>
           <li className="nav-item">
-              <Link className="nav-link" to="/events">Company Events</Link>
+              {/* <Link className="nav-link" to="/events">Company Events</Link> */}
+              <Link className={classnames('nav-link', {'d-none' : (profile === null || Object.keys(profile).length === 0)})} to="/events">Company Events</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to='/dashboard'>
@@ -88,11 +97,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = { 
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  profile: state.profile
 })
 
 export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);
