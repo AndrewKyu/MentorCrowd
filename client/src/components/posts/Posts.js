@@ -24,7 +24,7 @@ class Posts extends Component {
     }else{
       postContent = (profile === null || Object.keys(profile).length === 0) ? (
         <div className="mt-4">
-          <p className="text-center">You don't have a profile yet. <Link to="/dashboard">Please create one here</Link> to get connected with mentors</p>
+          <p className="text-center">You don't have a profile yet. <Link to="/dashboard">Please create one here</Link> to get connected with mentors or mentees</p>
           {/* <PostFeed posts={posts} /> */}
         </div>
       ) : <PostFeed posts={posts} />;
