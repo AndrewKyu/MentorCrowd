@@ -9,6 +9,7 @@ const profile = require('./routes/api/profile');
 const messages = require('./routes/api/message');
 const posts = require('./routes/api/post');
 const events = require('./routes/api/event');
+const connections = require('./routes/api/connections');
 
 const app = express();
 const http = require('http').Server(app);
@@ -39,6 +40,7 @@ app.use('/api/profile', profile);
 app.use("/api/posts", posts);
 app.use('/api/message', messages);
 app.use('/api/events', events);
+app.use('/api/connections', connections);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {

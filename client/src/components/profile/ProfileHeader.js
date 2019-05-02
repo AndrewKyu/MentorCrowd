@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import isEmpty from "../../validation/is-empty";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+// import { getConnections }from '../../actions/authActions';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 //a ref file
 class ProfileHeader extends Component {
+  componentDidMount(){
+    // profile.user._id
+    // this.props.getConnections(this.props.profile.user._id);
+  }
   render() {
     const { profile } = this.props;
-    
+    // console.log(this.props);
     return (
       <div className="row">
         <div className="col-md-12">
@@ -99,7 +107,11 @@ class ProfileHeader extends Component {
                   <strong>Up Votes: {profile.mentorpoints.length}</strong>
               </p>
               <p className="text-white">
-                  <Link to={`/contact/${profile.handle}`} className="text-white">Want to get in touch with {profile.user.name}?</Link>
+                  {/* <Link to={`/connections/${profile.user._id}`} className="text-white">View {profile.user.name}'s Connections</Link> */}
+                  <Link to={{
+                    pathname:`/connections/${profile.user._id}`,
+                    query:{profile: profile}
+                  }}>View {profile.user.name}'s Connections</Link>
               </p>
             </div>
           </div>
@@ -108,5 +120,14 @@ class ProfileHeader extends Component {
     );
   }
 }
+
+ProfileHeader.propTypes = {
+  // getConnections: PropTypes.func.isRequired,
+  // auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  // auth: state.auth
+})
 
 export default ProfileHeader;

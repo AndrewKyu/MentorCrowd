@@ -22,5 +22,10 @@ export const GET_EVENT = "GET_EVENT";
 export const ADD_EVENT = "ADD_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
 
+export const GET_CONNECTIONS = "GET_CONNECTIONS";
+export const ADD_CONNECTION = "ADD_CONNECTION";
+export const ACCEPT_CONNECTION = "ACCEPT_CONNECTION";
+export const CONNECTION_LOADING = "CONNECTION_LOADING";
+
 
 export const GET_SELF = "GET_SELF";

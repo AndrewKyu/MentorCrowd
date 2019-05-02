@@ -22,28 +22,24 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  sentRequest: [{
-    user: {
-      type: Schema.Types.ObjectId,
-      ref:"users"
-    }
-  }],
-  request: [{
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "users"
-    }
-  }],
   connectionList: [{
     connectionId: {
-      type: Schema.Types.ObjectId,
-      ref: "users"
+        type: Schema.Types.ObjectId,
+        ref: "users"
     }
   }],
-  totalRequest:{
-    type: Number,
-    default: 0
-  }
+  sentRequests: [{
+    user:{
+        type: Schema.Types.ObjectId,
+        ref: "users"
+    }
+  }],
+  requests: [{
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+    }
+  }]
 });
 
 module.exports = User = mongoose.model("users", UserSchema);

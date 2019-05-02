@@ -99,10 +99,10 @@ router.post('/login', (req, res) => {
             errors.email = "Email or password field is incorrect";
             return res.status(404).json(errors);
         }
-
+        console.log(user);
         bcrypt.compare(password, user.password).then(isMatch => {
             if(isMatch){
-                const payload = {id: user.id, name: user.name, image: user.image}; //creates JWT Payload
+                const payload = {id: user.id, name: user.name, image: user.image, connectionList: user.connectionList, sentRequests: user.sentRequests, requests: user.requests}; //creates JWT Payload
 
                 //Sign Token
                 jwt.sign(
@@ -124,7 +124,7 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.get('/connection', 
+router.get('/connection/:user_id', 
             passport.authenticate('jwt', { session: false }), 
             (req, res) => {
     var sent = [];
@@ -136,7 +136,7 @@ router.get('/connection',
     connections = req.user.connectionList;
     received = req.user.request;
     
-    User.findOne({ _id: req.user._id })
+    User.findOne({ _id: req.params.user_id })
         .populate("connectionList.connectionId")
         .then(user => {
             if(!user){
@@ -151,8 +151,6 @@ router.get('/connection',
             res.json(user);
         })
         .catch(err => res.status(404).json(err));
-
-    res.status(400);
 });
 
 router.post('/connection/:user_id', 

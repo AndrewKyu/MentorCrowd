@@ -140,11 +140,13 @@ router.get('/user/:user_id', (req, res) => {
 
   Profile.findOne({user: req.params.user_id})
     .populate("user")
+    .populate("connectionList.connectionId")
     .then(profile => {
       if(!profile){
         errors.noprofile = "There's no profile for this user";
         res.status(404).json(errors);
       }
+      // profile.user.connectionList.populate("connectionId").then(profile => res.json(profile));
       res.json(profile);
     })
     .catch(err => res.status(404).json("There's no profile for this user"));

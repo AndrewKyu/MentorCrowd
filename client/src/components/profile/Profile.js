@@ -9,9 +9,11 @@ import ProfileGithub from "./ProfileGithub";
 import ProfileContact from './ProfileContact';
 import Spinner from "../common/Spinner";
 import { getProfileByHandle } from "../../actions/profileActions";
+import { getConnections } from '../../actions/authActions';
 
 class Profile extends Component {
   componentDidMount() {
+    // console.log(this.props.profile.profile);
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
     }
@@ -27,7 +29,7 @@ class Profile extends Component {
     const { profile, loading } = this.props.profile;
     let profileContent;
     let GitHubInfo;
-
+    // console.log(profile.user)
     if (profile === null || loading) {
       profileContent = <Spinner />;
     } else {
@@ -79,7 +81,8 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  getConnections: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -88,5 +91,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getProfileByHandle }
+  { getProfileByHandle, getConnections }
 )(Profile);

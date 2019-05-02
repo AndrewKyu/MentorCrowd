@@ -29,6 +29,7 @@ import Post from './components/post/Post';
 import Events from './components/events/Events';
 import EditEvent from './components/events/EditEvent';
 import Matches from './components/match/Matches';
+import Connections from './components/connection/Connections';
 
 
 //Check for token
@@ -99,6 +100,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/matches/:id" component={ Matches } />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/connections/:id" component={ Connections } />
               </Switch>
             </div>
           </div>
