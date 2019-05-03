@@ -98,9 +98,6 @@ class ProfileHeader extends Component {
               <p className="text-white">
                   <strong>Up Votes: {profile.mentorpoints.length}</strong>
               </p>
-              <p className="text-white">
-                  <Link to={`/contact/${profile.handle}`} className="text-white">Want to get in touch with {profile.user.name}?</Link>
-              </p>
             </div>
           </div>
         </div>
