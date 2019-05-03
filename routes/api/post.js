@@ -195,7 +195,7 @@ router.post(
       //if any errors, send 400 with errors object
       return res.status(400).json(errors);
     }
-    console.log(req.body);
+    
     Post.findById(req.params.id)
       .then(post => {
         const newComment = {

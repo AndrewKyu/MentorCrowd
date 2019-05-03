@@ -37,11 +37,6 @@ class ProfileById extends Component {
         profileContent = (
           <div>
               <div className="row">
-                {/* <div className="col-md-6 mb-6">
-                  <Link to="/dashboard" className="btn btn-light mb-3 float-left mt-3">
-                    Back To Dashboard
-                  </Link> 
-                </div> */}
                 <div className="col-md-6" />
               </div>
               <ProfileHeader profile={profile} />
