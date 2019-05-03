@@ -18,10 +18,6 @@ class Navbar extends Component {
     const { isAuthenticated, user } = this.props.auth;
     const { profile } = this.props.profile;
 
-    // if(profile === null || Object.keys(profile).length === 0){
-    //   console.log("no profile");
-    // }
-    // console.log(profile);
     const authLinks =(
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">

@@ -88,6 +88,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { addRating })(ProfileItem);
-// {classnames('fas fa-thumbs-up', {
-//   'text-info': this.findUserLike(profile.mentorpoints)
-// })}

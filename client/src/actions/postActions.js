@@ -97,7 +97,7 @@ export const addLike = id => dispatch => {
 //Get Post
 export const getPost = (id) => dispatch => {
     dispatch(setPostLoading());
-
+    
     axios
         .get(`/api/posts/${id}`)
         .then(res => 
@@ -120,10 +120,7 @@ export const addComment = (postId, commentData) => dispatch => {
     axios
         .post(`/api/posts/comment/${postId}`, commentData)
         .then(res => 
-            dispatch({
-                type: GET_POST,
-                payload: res.data
-            })    
+            dispatch(getPost(postId))    
         )
         .catch(err => 
             dispatch({
@@ -138,10 +135,7 @@ export const deleteComment = (postId, commentId) => dispatch => {
     axios
         .delete(`/api/posts/comment/${postId}/${commentId}`)
         .then(res => 
-            dispatch({
-                type: GET_POST,
-                payload: res.data
-            })    
+            dispatch(getPost(postId))    
         )
         .catch(err => 
             dispatch({
