@@ -42,10 +42,12 @@ class Login extends Component{
             email: this.state.email,
             password: this.state.password,
         }
+        console.log(UserData);
         this.props.loginUser(UserData)
     }
     render(){
         const { errors } = this.state;
+        console.log(errors);
 
         return(
             <div className="loginPage">

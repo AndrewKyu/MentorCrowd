@@ -49,7 +49,7 @@ class Register extends Component{
         const { errors } = this.state;
         return(
             <div className="registerPage">
-                <h2>Sign Up</h2>
+                <h2>Sign Up for MentorCrowd</h2>
                 <p>Join MentorCrowd and start yoinking up your career today!</p>
                 <p>Already registered? Click <Link to="/login">here</Link> to log in.</p>
                 <div className="mentorCrowdForm">
@@ -90,7 +90,7 @@ class Register extends Component{
                         </form>
                     </div>
                 </div>
-                <p className="terms">By signing up you agree to our <Link to="/">Terms & Conditions</Link></p>
+                <p className="terms">By signing up you agree to our Terms & Conditions</p>
             </div>
         );  
     }
