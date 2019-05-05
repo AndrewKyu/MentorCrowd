@@ -20,7 +20,7 @@ componentDidMount(){
                   <div className="row">
                     <div className="col-md-12 text-center">
                       <h1>MentorCrowd</h1>
-                      <p className="description">** ENTER A DESCRIPTION ABOUT MENTORCROWD HERE **</p>
+                      <p className="description">MentorCrowd is the latest social media application that is centered around mentorship and growth. Join the community to find out how others can help you, and how you can help others.</p>
                       <div className="homePageButtons">
                         <Link to="/register">
                           <button>Register</button>

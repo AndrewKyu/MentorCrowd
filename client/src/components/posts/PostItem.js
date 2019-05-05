@@ -30,7 +30,7 @@ class PostItem extends Component {
 
   render() {
     const { post, auth, showActions } = this.props;
-    
+    console.log(post);
     return (
       <div className="card card-body mb-3">
         <div className="row">
@@ -44,7 +44,7 @@ class PostItem extends Component {
               />
             </Link>
             <br />
-            <p className="text-center">{post.name}</p>
+            <p className="text-center post-name">{post.name}</p>
           </div>
           <div className="col-md-7">
             <p className="lead">{post.text}</p>
