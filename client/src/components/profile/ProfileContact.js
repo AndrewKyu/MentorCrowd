@@ -32,7 +32,6 @@ class ProfileContact extends Component {
             name: this.state.name,
             from: this.state.from,
             to: this.state.to,
-            from: this.state.from,
             subject: this.state.subject,
             message: this.state.message
         }

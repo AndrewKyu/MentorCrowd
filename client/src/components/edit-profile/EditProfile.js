@@ -52,18 +52,13 @@ class EditProfile extends Component {
             instagram: this.state.instagram,
             image: this.state.selectedFile
         };
-        console.log(profileData.image);
+        
         const fd = new FormData();
         fd.append('image', profileData.image);
         this.props.createProfile(profileData, this.props.history);
         this.props.uploadProfilePic(fd);
     }
-    // uploadPic(e){
-    //     e.preventDefault()
-    //     const formdata = new FormData();
-    //     formdata.append('image', this.state.selectedFile)
-    //     this.props.uploadProfilePic(formdata);
-    // }
+   
     onChange(e){
         this.setState({[e.target.name]: e.target.value});
     }

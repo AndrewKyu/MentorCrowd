@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import PostForm from './PostForm';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
-import PostFeed from './PostFeed';
 import { getCurrentProfile } from '../../actions/profileActions';
+import PostFeed from './PostFeed';
+import { Link } from 'react-router-dom';
 
 class Posts extends Component {
   componentDidMount(){
@@ -15,19 +16,27 @@ class Posts extends Component {
   
   render() {
     const { posts, loading } = this.props.post;
+    const { profile } = this.props.profile;
     let postContent;
-
+    
     if(posts === null || loading) {
       postContent = <Spinner />
     }else{
-      postContent = <PostFeed posts={posts} />
+      postContent = (profile === null || Object.keys(profile).length === 0) ? (
+        <div className="mt-4">
+          <p className="text-center">You don't have a profile yet. <Link to="/dashboard">Please create one here</Link> to get connected with mentors or mentees</p>
+          {/* <PostFeed posts={posts} /> */}
+        </div>
+      ) : <PostFeed posts={posts} />;
+      // postContent = <PostFeed posts={posts} />
     }
     return (
       <div className="feed">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <PostForm />
+              {/* <PostForm /> */}
+              {(profile === null || Object.keys(profile).length === 0) ? null : <PostForm />}
               {postContent}
             </div>
           </div>
@@ -39,13 +48,17 @@ class Posts extends Component {
 
 Posts.propTypes = {
   post: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   getPosts: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   post: state.post,
+  auth: state.auth,
   profile: state.profile
 });
 
 export default connect(mapStateToProps, { getPosts, getCurrentProfile })(Posts);
+

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class ProfileActions extends Component {
   render(){
     const { profile } = this.props;
-    // console.log(profile.handle);
+    
     return (
       <div className="btn-group mb-4" role="group">
         <Link to="/edit-profile" className="btn btn-light">
