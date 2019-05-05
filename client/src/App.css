@@ -20,23 +20,28 @@
     text-rendering:optimizeLegibility;
 }
 body {
-    background-color: #ECF0F2!important;
-    margin: 0!important;
+    background-color: #ECF0F2;
+    margin: 0;
 }
 h1, h2, h3, h4, h5, h6 { 
-    font-family: 'Roboto', sans-serif!important;
+    font-family: 'Roboto', sans-serif;
     color: #47525E;
 }
 p {
-    font-family: 'Roboto', sans-serif!important;
-    color: #9FAAB0!important;
-    letter-spacing: 0.50px!important;
+    font-family: 'Roboto', sans-serif;
+    color: #9FAAB0;
+    letter-spacing: 0.50px;
 }
 a {
     -o-transition: 0.4s ease-in-out;
     -ms-transition: 0.4s ease-in-out;
     -moz-transition: 0.4s ease-in-out;
     transition: 0.4s ease-in-out;
+}
+.text-center {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    margin-bottom: 0;
 }
 /** basics end **/
 
@@ -62,18 +67,22 @@ nav a:hover {
 .custom-toggler .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
-.mc-logo{
-    width: 40px;
+.mc-logo {
     height: 40px;
 }
-.footerBg{
-    background-color: #63BFE1!important;
-    font-family: 'Roboto', sans-serif;
-    color: #fff!important;
-    letter-spacing: 0.5px;
-    font-size: 16px!important;
-}
 /** navigation end **/
+
+/** footer start **/
+footer { 
+    background-color: #63BFE1;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+    padding: 20px;
+    text-align: center;
+}
+/** footer end **/
 
 /** home page start **/
 .landing-inner {
@@ -130,7 +139,7 @@ nav a:hover {
 }
 p.description {
     margin-top: 10px;
-    color: #fff!important;
+    color: #fff;
 }
 /** home page end **/
 
@@ -256,20 +265,24 @@ p.help {
 .feed {
     width: 80%;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
-.card card-info .bg-info {
+.feed .card-header, .post-form .card-header {
     background-color: #9FAAB0!important;
-}
-.card card-info .text-white {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
-    font-size: 1.25em;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.5px;
+    color: #fff;
 }
-.card-body #form button[type="submit"] {
+.post-form textarea {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    color: #47525E;
+    letter-spacing: 0.5px;
+}
+.post-form button[type="submit"]{
     width: 100%;
     background-color: #9FAAB0;
     color: #fff;
@@ -280,22 +293,17 @@ p.help {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
+    border-radius: 3px;
 }
-.card-body #form button[type="submit"]:hover {
+.post .btn {
+    width: auto;
+    padding: auto 20px;
+}
+.post-form button[type="submit"]:hover{
     background-color: #47525E;
     -webkit-transition:background 0.3s ease-in-out;
     -moz-transition:background 0.3s ease-in-out;
     transition:background-color 0.3s ease-in-out;
-}
-.card-body #form textarea {
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    color: #47525E;
-    letter-spacing: 0.5px;
-}
-.text-center {
-    font-size: 18px;
-    margin-bottom: 0;
 }
 .lead {
     color: #47525E!important;
@@ -314,23 +322,45 @@ p.help {
     -moz-transition:background 0.3s ease-in-out;
     transition:background-color 0.3s ease-in-out;
 }
-/** feed page end **/
-
-/** post page start **/
+p.post-name {
+    color: #47525E!important;
+}
 .post {
     width: 80%;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
-.feed .btn {
+.post a {
+    color: #47525E;
+    transition: 0.4s ease-in-out;
+}
+.post a:hover {
+    text-decoration: none;
+    color: #000;
+}
+.feed .btn-info {
     background-color: #9FAAB0;
     color: #fff;
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-/** post page end **/
+.feed .text-info {
+    color: #63BFE1!important;
+}
+.feed .btn-danger {
+    background-color: #63BFE1;
+    border-color: #63BFE1;
+}
+.feed .btn-danger:hover {
+    background-color: #00709A;
+    border-color: #00709A;
+}
+.feed mr-1 {
+    margin-right: 10px!important;
+}
+/** feed page end **/
 
 /** developer profile page start **/
 .profiles {
@@ -344,10 +374,40 @@ p.help {
     text-align: center;
     margin-top: 30px;
 }
-.profiles p {
-    color: #47525E!important;
+.profiles p.description {
+    color: #47525E;
     text-align: center;
     text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.profiles h3 {
+    color: #47525E;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.profiles p {
+    color: #47525E;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.profiles .btn {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 3px 10px;
+}
+.profiles .btn-info:hover {
+    background-color: #47525E;
+}
+.profiles .text-info {
+    color: #63BFE1!important;
+}
+.profiles .list-group-item {
+    padding: 5px 10px;
+/*    border: none;*/
+    font-size: 16px;
+    color: #47525E;
+    font-family: 'Roboto', sans-serif;
 }
 /** developer profile page end **/
 
@@ -441,7 +501,9 @@ p.help {
 .certifiates {
   padding-bottom: 10px;
 }
+/** profile page end **/
 
+/** responsive start **/
 @media screen and (max-width: 1200px) {
     .loginPage {
         width: 90%;
@@ -465,4 +527,4 @@ p.help {
         width: 100%;
     }
 }
-/** profile page end **/
+/** responsive end **/

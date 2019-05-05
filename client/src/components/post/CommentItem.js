@@ -19,7 +19,7 @@ class CommentItem extends Component {
                         <img className="rounded-circle d-none d-md-block" src={comment.user.image} alt=""  style={{margin: 'auto' , width: '200px', height: '200px'}}/>
                     </Link>
                     <br />
-                    <p className="text-center">{comment.name}</p>
+                    <p className="text-center post-name">{comment.name}</p>
                 </div>
                 <div className="col-md-7">
                     <p className="lead">{comment.text}</p>

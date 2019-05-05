@@ -21,7 +21,7 @@ class ProfileItem extends Component {
   render() {
     const { profile } = this.props;
     return (
-      <div className="card card-body bg-light mb-3">
+      <div className="card card-body mb-3">
         <div className="row">
           <div className="col-3">
             <img
@@ -50,18 +50,18 @@ class ProfileItem extends Component {
             <button
                   onClick={this.onRateClick.bind(this, profile._id)}
                   type="button"
-                  className="btn btn-light mr-1"
+                  className="btn mr-1"
                 >
                   <i
                     className={classnames('fas fa-star', {
                       'text-info': this.findUserRate(profile.mentorpoints)
                     })}
                   />
-                  <span className="badge badge-light">{profile.mentorpoints.length}</span>
+                  <span className="badge">{profile.mentorpoints.length}</span>
                 </button>
           </div>
           <div className="col-md-4 d-none d-md-block">
-            <h4>Skill Set</h4>
+            <h3>Skill Set</h3>
             <ul className="list-group">
               {profile.skills.slice(0, 4).map((skill, index) => (
                 <li key={index} className="list-group-item">
