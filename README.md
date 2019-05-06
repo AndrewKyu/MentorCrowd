@@ -6,26 +6,11 @@ Social media platform that's geared towards mentorship for college students. Use
 <br/>
 React Js, Express Js, Node Js, MongoDB
 
-# Prerequisites 
+# Tools Used
 <br/>
-You need node.js, mongodb, and MLab
+- Frontend: Redux, Redux Thunk, Axios, classnames, Moments,Reactstrap, Bootstrap
+- Backend: Mongoose, BcryptJs, Body-Parser, Passport, Passport-Jwt, Jsonwebtoken,Cloudinary, Concurrently, Datauri, Multer, Nodemailer, Text-miner, Validator
+- Deployment: Heroku
 
-Create MLab account: https://mlab.com/
-
-# Installing on MAC OSX
-<br/>
-1. Install Node.js: https://nodejs.org/en/download/ 
-<br/>
-2. Install MongoDB: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-os-x/
-
-# Install Dependencies
-<br/>
-1. Clone repository or download the zip file: git clone https://github.com/AndrewKyu/MentorCrowd.git 
-<br/>
-2. Run: npm install
-
-# Running the application
-<br/>
-1. Run: npm run server
-
-
+# Link
+https://mentorcrowd.herokuapp.com/
