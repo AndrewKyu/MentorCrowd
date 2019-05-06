@@ -9,7 +9,9 @@ React Js, Express Js, Node Js, MongoDB
 # Tools Used
 <br/>
 - Frontend: Redux, Redux Thunk, Axios, classnames, Moments,Reactstrap, Bootstrap
+<br/>
 - Backend: Mongoose, BcryptJs, Body-Parser, Passport, Passport-Jwt, Jsonwebtoken,Cloudinary, Concurrently, Datauri, Multer, Nodemailer, Text-miner, Validator
+<br/>
 - Deployment: Heroku
 
 # Link
