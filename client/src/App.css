@@ -81,6 +81,7 @@ footer {
     font-size: 16px;
     padding: 20px;
     text-align: center;
+    margin-top: 10px;
 }
 /** footer end **/
 
@@ -138,8 +139,10 @@ footer {
     transition:background-color 0.3s ease-in-out;
 }
 p.description {
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 5px;
     color: #fff;
+    font-size: 26px;
 }
 /** home page end **/
 
@@ -360,6 +363,18 @@ p.post-name {
 .feed mr-1 {
     margin-right: 10px!important;
 }
+p.failcase {
+    color: #47525E;
+    font-size: 18px;
+    text-align: center;
+}
+p.failcase a {
+    color: #63BFE1;
+}
+p.failcase a:hover {
+    color: #00709A;
+    text-decoration: none;
+}
 /** feed page end **/
 
 /** developer profile page start **/
@@ -423,14 +438,224 @@ p.post-name {
     text-align: center;
     margin-top: 30px;
 }
-.matches p {
-    color: #47525E!important;
+.matches p.description {
+    color: #47525E;
     text-align: center;
     text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.matches h3 {
+    color: #47525E;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.matches p {
+    color: #47525E;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.matches .btn {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 3px 10px;
+}
+.matches .btn-info:hover {
+    background-color: #47525E;
+}
+.matches .text-info {
+    color: #63BFE1!important;
+}
+.matches .list-group-item {
+    padding: 5px 10px;
+/*    border: none;*/
+    font-size: 16px;
+    color: #47525E;
+    font-family: 'Roboto', sans-serif;
 }
 /** recommended page end **/
 
+/** events page start **/
+.events .btn-primary {
+    background-color: #9FAAB0;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+}
+.events .btn-primary:hover {
+    background-color: #47525E;
+}
+.events h2 {
+    font-size: 28px;
+    color: #47525E;
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+.events p {
+    margin-bottom: 5px;
+}
+.events p.host {
+    text-align: center;
+    color: #47525E;
+    font-size: 18px;
+}
+.events p.description {
+    font-size: 20px;
+    text-align: center;
+    color: #47525E;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+.events .eventactions {
+    margin: 30px auto 15px auto;
+}
+.events .eventactions button { 
+    width: 300px;
+    background-color: #9FAAB0;
+}
+.events p.alert {
+    text-align: center;
+    color: #47525E;
+    font-size: 18px;
+    margin: 0 auto;
+    text-transform: uppercase;
+}
+.eventform p.lead {
+    margin-bottom: 10px;
+}
+.events button.btn-cancel {
+    background-color: #dc3545;
+}
+.modal-footer .btn {
+    background-color: #9FAAB0;
+    border: none;
+    text-transform: uppercase;
+    width: 50%;
+}
+.modal-footer .btn:hover {
+    background-color: #47525E;
+    border: none;
+}
+.modal-content h5 {
+    font-size: 22px;
+}
+.modal-content .btn {
+    background-color: #9FAAB0;
+    border: none;
+    text-transform: uppercase;
+}
+.modal-content .btn:hover {
+    background-color: #47525E;
+    border: none;
+}
+/** events page end **/
+
+/** dashboard page start **/
+p.welcome {
+    color: #47525E;
+    font-size: 24px;
+}
+.dashboard .btn {
+    background-color: #9FAAB0;
+    color: #fff;
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    border: none;
+}
+.dashboard .btn:hover {
+    background-color: #47525E;
+    -webkit-transition:background 0.3s ease-in-out;
+    -moz-transition:background 0.3s ease-in-out;
+    transition:background-color 0.3s ease-in-out;
+}
+.dashboard h1 {
+    text-transform: uppercase;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.dashboard .btn-group {
+    width: 100%;
+}
+.dashboard .btn {
+    background-color: #9FAAB0;
+    color: #fff;
+    border: none;
+}
+.dashboard .btn:hover {
+    background-color: #47525E;
+    -webkit-transition:background 0.3s ease-in-out;
+    -moz-transition:background 0.3s ease-in-out;
+    transition:background-color 0.3s ease-in-out;
+}
+.dashboard i {
+    color: #fff;
+    padding-right: 10px;
+}
+.dashboard img {
+    margin-top: 3px;
+    margin-right: -20px;
+}
+.add-experience .btn, .add-education .btn {
+    background-color: #9FAAB0;
+    color: #fff;
+    border: none;
+    margin-bottom: 20px;
+}
+.add-experience .btn:hover, .add-education .btn:hover {
+    background-color: #47525E;
+    -webkit-transition:background 0.3s ease-in-out;
+    -moz-transition:background 0.3s ease-in-out;
+    transition:background-color 0.3s ease-in-out;
+}
+.add-experience h1, .add-education h1 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: #47525E;
+}
+.add-experience p.lead, .add-education p.lead {
+    margin-bottom: 20px;
+    color: #47525E;
+    text-transform: uppercase;
+}
+
+/** dashboard page end **/
+
 /** profile page start **/
+.create-profile {
+    font-family: 'Roboto', sans-serif;
+}
+.create-profile h1 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.create-profile p.lead {
+    color: #47525E;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+.create-profile small {
+    color: #47525E;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.25px;
+}
+.create-profile .btn-info {
+    background-color: #9FAAB0;
+    margin-bottom: 20px;
+}
+.create-profile .btn-info:hover {
+    background-color: #47525E;
+    border: none;
+    -webkit-transition:background 0.3s ease-in-out;
+    -moz-transition:background 0.3s ease-in-out;
+    transition:background-color 0.3s ease-in-out;
+}
 .profilePage {
   background-color: #fff;
   width: 50%;
