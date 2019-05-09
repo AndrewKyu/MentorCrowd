@@ -29,6 +29,9 @@ import Post from './components/post/Post';
 import Events from './components/events/Events';
 import EditEvent from './components/events/EditEvent';
 import Matches from './components/match/Matches';
+import About from './components/static-pages/About';
+import Sponsor from './components/static-pages/Sponsor';
+
 
 
 //Check for token
@@ -70,6 +73,8 @@ class App extends Component {
               <Route exact path="/profiles" component={ Profiles } />
               <Route exact path="/profile/:handle" component={Profile} />
               <Route exact path="/profile/user/:user_id" component={ProfileById} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/companies" component={Sponsor} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={ Dashboard } />
               </Switch>
