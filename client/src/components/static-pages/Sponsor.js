@@ -11,7 +11,7 @@ import Netflick from "../../img/netflick.png"
 
 export default function Sponsor() {
   return (
-<div className="sponsorPage">
+<div className="sponsorPage mt-3">
     <div className="companySponsors">
         <h1>Company Sponsors</h1>
         <p>Special thanks to our company sponsors Banana, Bookface, Congo, CriscoButter, 
