@@ -219,10 +219,8 @@ class CreateProfile extends Component {
                             >
                                 Add Social Network Links
                             </button>
-                            <span className="text-muted">Optional</span>
                             </div>
                             {socialInputs}
-                            <p>Upload new profile picture: </p>
                             <input type="file" onChange={this.fileHandler}/>
                             {/* <button onClick={this.uploadPic}>Upload</button> */}
                             <input

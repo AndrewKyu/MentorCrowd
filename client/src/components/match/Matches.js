@@ -31,7 +31,7 @@ class Matches extends Component {
                     <h1>
                         Recommended Developers
                     </h1>
-                    <p>
+                    <p className="description">
                         Browse and connect with recommended develoeprs
                     </p>
                     {matchedItems}
