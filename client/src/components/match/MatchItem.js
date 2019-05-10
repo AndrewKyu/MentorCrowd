@@ -22,7 +22,7 @@ class MatchItem extends Component {
       const { match } = this.props;
     return (
       <div>
-        <div className="card card-body bg-light mb-3">
+        <div className="card card-body mb-3">
             <div className="row">
                 <div className="col-3">
                 <img

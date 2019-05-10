@@ -74,25 +74,25 @@ class EventItem extends Component {
                     style={{margin: 'auto', width: '175px', height: '175px'}}
                 />
                 <br/>
-                <p className="text-center">Host: {event.user.name}</p>
+                <p className="host">Host: {event.user.name}</p>
             </div>
             <div className="col-md-7">
-                <h2 className="text-center">             
+                <h2>             
                     {event.event}
                 </h2>
-                <p className="text-center">
+                <p className="description">
                     {event.description}
                 </p>
                 <p className="text-center">
-                    Minimum Points Required: {event.minpoints}
+                    <strong>Minimum Points Required:</strong> {event.minpoints}
                 </p>
-                <p className="text-center"><b>Date: <Moment format="MM/DD/YYYY">{event.eventdate}</Moment></b></p>
-                <p className="text-center"><b>From: {event.from} | To: {event.to}</b></p>
-                <p className="text-center">{event.location}</p>
+                <p className="text-center"><strong>Date:</strong> <Moment format="MM/DD/YYYY">{event.eventdate}</Moment></p>
+                <p className="text-center"><strong>Time: </strong> {event.from} - {event.to}</p>
+                <p className="text-center"><strong>Location: </strong>{event.location}</p>
             </div>
         </div>
         <div className="row">
-            <div className="eventactions d-block m-auto">
+            <div className="eventactions d-block">
                 {showActions ? (
                     <span>
                         <Button 
@@ -109,7 +109,7 @@ class EventItem extends Component {
                 ) : null}
                 
                 <Button onClick={this.toggle} className="btn-sm m-1" color="primary">
-                    View Attendance <span className="badge badge-light">{event.attendees.length}</span>
+                    View Attendance <span className="badge">({event.attendees.length})</span>
                 </Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                         <ModalHeader>
@@ -133,8 +133,7 @@ class EventItem extends Component {
                 </button>) : null}
             </div>
         </div>
-        <br/>
-        {(attendable) ? <p className="text-center">* You do not have enough points to attend this event</p> : ""}
+        {(attendable) ? <p className="alert">* You do not have enough points to attend this event</p> : ""}
       </div>
     )
   }
