@@ -37,7 +37,8 @@ export default function About() {
               <img src={Stephen} className="mb-3" style={{width: '150px'}}/>
           </div>
           <div className="col-lg-8 col-md-8">
-            <p>STEPHEN TO WRITE A BIO ABOUT YOURSELF</p>
+            <p>Stephen is a graduating senior from San Jose State University majoring in Computer Engineering. Stephen's primary role for this project was the matching algorithm which decided when to recommend users to one another. The primary tool used for this was text-miner package which alloowed the generation and manipulaltion of a document term matrix.</p>
+            <p>Outside of his studies Stephen enjoys participating in intramural sports with his fraternity and playing video games with his friends.</p>
           </div>
         </div>
     </div>
