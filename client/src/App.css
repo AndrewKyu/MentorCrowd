@@ -726,6 +726,9 @@ p.welcome {
 .certifiates {
   padding-bottom: 10px;
 }
+.bg-gray {
+    background-color: #9FAAB0; 
+}
 /** profile page end **/
 
 /** responsive start **/
