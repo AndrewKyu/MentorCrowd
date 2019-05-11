@@ -29,7 +29,8 @@ export default function About() {
               <img src={Cindy} className="mb-3" style={{width: '150px'}}/>
           </div>
           <div className="col-lg-8 col-md-8">
-            <p>CINDY TO WRITE A BIO ABOUT YOURSELF</p>
+            <p>Cindy is on her last year at San Jose State University studying Computer Engineering. Her role in this project was to work as the frontend engineer using HTML5, CSS3, JavaScript, React.js, Bootstrap, etc. After graduation, she will be joining Aruba, a Hewlett Packard Enterprise company as a Jr. Web Developer.</p>
+            <p>When Cindy isn't at school, she likes to binge her favorite shows on Netflix, plan her next trip, and eat ice cream.</p>
           </div>
         </div>
         <div className="row">
