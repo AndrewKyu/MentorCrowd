@@ -34,7 +34,7 @@ describe('User', function(){
                 res.body.SUCCESS.should.have.property('email');
                 res.body.SUCCESS.should.have.property('password');
                 res.body.SUCCESS.should.have.property('_id');
-                res.body.SUCCESS.name.should.equal('Bob Kyu');
+                res.body.SUCCESS.name.should.equal('Bob');
                 res.body.SUCCESS.email.should.equal('test@test.com');
                 // res.body.SUCCESS.password.should.equal('testtest');
                 done();
