@@ -71,7 +71,7 @@ router.get(
     passport.authenticate('jwt', {session: false}), 
     (req, res) => {
         const errors = {};
-
+        
         Profile.findOne({user: req.user.id})
         .populate("user")
         .then(profile => {
@@ -93,7 +93,7 @@ router.get(
 */
 router.get('/all', (req, res) => {
   const errors = {};
-
+  console.log('are we hitting this route');
   Profile.find()
     .populate("user")
     .then(profiles => {

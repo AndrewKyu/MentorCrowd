@@ -1,0 +1,14 @@
+langauge: node_js
+node_js:
+  - 7
+cache:
+  - node_modules
+script:
+  - npm run test
+deploy:
+  provider: heroku
+  api_key:
+    secure: c373df77-67a3-4395-984d-45bd6e9e659b
+  app: mentorcrowd
+  on:
+    repo: andrewkyu/mentorcrowd
