@@ -2,11 +2,15 @@ langauge: node_js
 node_js:
   - 7
 cache:
-  - node_modules
+  directories:
+    - node_modules
 before_install:
-  - npm i -g npm@
+  - npm i -g npm@10.15.3
+install:
+  - npm install
 script:
   - npm run test
+  - npm run build
 deploy:
   provider: heroku
   api_key:
